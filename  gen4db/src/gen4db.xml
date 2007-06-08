@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<gen4db>
+	<!-- project configuration -->
+	<project name="myseam" version="1.0" basePackage="com.googlecode.myseam"/>
+	
+	<!-- database configuration -->
+	<database>
+		<hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
+		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+		<jdbc.url><![CDATA[jdbc:mysql://localhost/myseam?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
+		<jdbc.username>root</jdbc.username>
+		<jdbc.password>root</jdbc.password>
+	</database>
+	
+	<!-- module configuration -->
+    <!-- modules,module,table have a prefix property used to filter the table prefix,
+       if the child element' prefix has value,use its prefix to filter,or use its parent prefix value 
+    -->
+	<modules >		
+		<module name="admin">
+			<table name="app_user" prefix="app_"/>
+			<table name="role"/>
+			<table name="user_role"/>
+		</module>
+	</modules>
+</gen4db>
