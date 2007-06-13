@@ -19,4 +19,8 @@ public class Util {
 	public String replaceSession(String name) {
 		return name.replaceAll(".session", ".entity");
 	}
+	
+	public String getModuleName(String tableName) {
+		return "";
+	}
 }

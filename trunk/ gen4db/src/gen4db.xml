@@ -18,9 +18,8 @@
     -->
 	<modules >		
 		<module name="admin">
-			<table name="app_user" prefix="app_"/>
-			<table name="role"/>
-			<table name="user_role"/>
+			app_user,role
 		</module>
 	</modules>
+	<prefix>app_,test_</prefix>
 </gen4db>
