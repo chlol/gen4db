@@ -1,6 +1,5 @@
 package com.googlecode.gen4db.util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -18,26 +17,30 @@ import org.dom4j.io.SAXReader;
  */
 public class Configuration {
 	private static final Log LOG = LogFactory.getLog(Configuration.class);
-	//for jdbc configuration
+	
+	public static String SEPARATOR = ",";
+	// for jdbc configuration
 	public static String HIBERNATE_DIALECT = "hibernate.dialect";
+
 	public static String JDBC_DRIVERCLASSNAME = "hibernate.connection.driver_class";
+
 	public static String JDBC_URL = "hibernate.connection.url";
+
 	public static String JDBC_USERNAME = "hibernate.connection.username";
+
 	public static String JDBC_PASSWORD = "hibernate.connection.password";
 
 	private static String CONFIG_FILE = "/gen4db.xml";
 
 	private static Document MY_DOC = null;
 
-	private static HashMap TABLE_PREFIX = new HashMap();
-
 	private static HashMap TABLE_MODULE = new HashMap();
 
 	public static Database DATABASE = new Database();
 
 	public static Project PROJECT = new Project();
-
-	public static Modules MODULES = new Modules();
+	
+	public static Prefix PREFIX = new Prefix();
 
 	// init configuration
 	static {
@@ -46,6 +49,7 @@ public class Configuration {
 				CONFIG_FILE).getFile();
 		try {
 			MY_DOC = saxReader.read(inputXml);
+			//for database
 			DATABASE.hibernateDialect = MY_DOC.selectSingleNode(
 					"//database/hibernate.dialect").getText();
 			DATABASE.driver = MY_DOC.selectSingleNode(
@@ -56,13 +60,19 @@ public class Configuration {
 					"//database/jdbc.username").getText();
 			DATABASE.password = MY_DOC.selectSingleNode(
 					"//database/jdbc.password").getText();
-
-			PROJECT.name = MY_DOC.selectSingleNode("//project/@name")
-					.getText();
+			
+			//for project
+			PROJECT.name = MY_DOC.selectSingleNode("//project/@name").getText();
 			PROJECT.version = MY_DOC.selectSingleNode("//project/@version")
 					.getText();
 			PROJECT.basePackage = MY_DOC.selectSingleNode(
 					"//project/@basePackage").getText();
+			
+			//for prefix
+			String prefixes = MY_DOC.selectSingleNode("//project").getText();
+			if (prefixes != null && !prefixes.equals("")) {
+				PREFIX.tablePrefixes = prefixes.split(SEPARATOR);
+			}
 
 			// debug
 			if (LOG.isDebugEnabled()) {
@@ -76,35 +86,18 @@ public class Configuration {
 				LOG.debug("projectBasePackage = " + PROJECT.basePackage);
 			}
 
-			List list = MY_DOC.selectNodes("//modules/module/table");
+			List list = MY_DOC.selectNodes("//modules/module");
+
 			for (int i = 0; i < list.size(); i++) {
-				Node table = (Node) list.get(i);
-				String prefix = "";
-				String tableName = table.selectSingleNode("@name").getText();
-				String tablePrefix = getNodeText(table
-						.selectSingleNode("@prefix"));
-				String module = getNodeText(table.getParent().selectSingleNode(
-						"@name"));
-				String modulePrefix = getNodeText(table.getParent()
-						.selectSingleNode("@prefix"));
-				String modulesPrefix = getNodeText(table.getParent()
-						.getParent().selectSingleNode("@prefix"));
-
-				if (tablePrefix != null && !tablePrefix.equals("")) {
-					prefix = tablePrefix;
-				} else if (modulePrefix != null && !modulePrefix.equals("")) {
-					prefix = modulePrefix;
-				} else {
-					prefix = modulesPrefix;
-				}
-
-				TABLE_PREFIX.put(tableName, prefix);
-				TABLE_MODULE.put(tableName, module);
-
-				// debug
-				if (LOG.isDebugEnabled()) {
-					LOG.debug("tableName = " + tableName + "; prefix = "
-							+ prefix + "; module = " + module);
+				Node moduleNode = (Node) list.get(i);
+				String module = getNodeText(moduleNode
+						.selectSingleNode("@name"));
+				String tables = moduleNode.getText();
+				if (tables != null && !tables.equals("")) {
+					String[] temp = tables.split(SEPARATOR);
+					for (int j = 0; j < temp.length; j++) {
+						TABLE_MODULE.put(temp[j], module);
+					}
 				}
 			}
 
@@ -155,10 +148,10 @@ public class Configuration {
 		private String url;
 
 		private String username;
-		
+
 		public Properties getHibernateDbConfiguration() {
 			Properties properties = new Properties();
-			properties.setProperty(HIBERNATE_DIALECT,hibernateDialect);
+			properties.setProperty(HIBERNATE_DIALECT, hibernateDialect);
 			properties.setProperty(JDBC_DRIVERCLASSNAME, driver);
 			properties.setProperty(JDBC_URL, url);
 			properties.setProperty(JDBC_USERNAME, username);
@@ -188,89 +181,16 @@ public class Configuration {
 	}
 
 	public static class Modules {
-		public List getModules() {
-			List modules = new ArrayList();
-			List list = MY_DOC.selectNodes("//modules/module");
-
-			for (int i = 0; i < list.size(); i++) {
-				Node moduleNode = (Node) list.get(i);
-				Module module = new Module();
-				module
-						.setName(getNodeText(moduleNode
-								.selectSingleNode("@name")));
-				List tableNodes = moduleNode.selectNodes("table");
-				for (int j = 0; j < tableNodes.size(); j++) {
-					Node tableNode = (Node) tableNodes.get(j);
-					Table table = new Table();
-					table.setName(getNodeText(tableNode
-							.selectSingleNode("@name")));
-					table.setPrefix(getNodeText(tableNode
-							.selectSingleNode("@prefix")));
-					module.addTable(table);
-				}
-				modules.add(module);
-			}
-
-			return modules;
-		}
-
-		public String getTablePrefix(String tableName) {
-			return (String) TABLE_PREFIX.get(tableName);
-		}
-
 		public String getTableModule(String tableName) {
 			return (String) TABLE_MODULE.get(tableName);
 		}
 	}
-
-	public static class Module {
-		private String name = null;
-
-		private List tables = new ArrayList();
-
-		public String getName() {
-			return name;
+	
+	public static class Prefix {
+		private String[] tablePrefixes = null;
+		public String[] getTablePrefixes() {
+			return tablePrefixes;
 		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public List getTables() {
-			return tables;
-		}
-
-		public void setTables(List tables) {
-			this.tables = tables;
-		}
-
-		public void addTable(Table table) {
-			this.tables.add(table);
-		}
-
-	}
-
-	public static class Table {
-		private String name = null;
-
-		private String prefix = null;
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public String getPrefix() {
-			return prefix;
-		}
-
-		public void setPrefix(String prefix) {
-			this.prefix = prefix;
-		}
-
 	}
 
 }
