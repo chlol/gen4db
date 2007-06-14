@@ -3,6 +3,7 @@
 	<name>gen4db</name>
 	<comment></comment>
 	<projects>
+		<project>hbt</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
