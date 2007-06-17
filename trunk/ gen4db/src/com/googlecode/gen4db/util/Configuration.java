@@ -37,6 +37,8 @@ public class Configuration {
 	private static HashMap TABLE_MODULE = new HashMap();
 
 	public static Database DATABASE = new Database();
+	
+	public static Modules MODULE = new Modules();
 
 	public static Project PROJECT = new Project();
 	
