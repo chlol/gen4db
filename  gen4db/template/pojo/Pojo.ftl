@@ -1,4 +1,5 @@
-${pojo.getPackageDeclaration()}
+<#assign packageDeclaration = util.replacePackageDeclaration(pojo.getPackageDeclaration(),profile,module)>
+${packageDeclaration}
 // Generated ${date} by Hibernate Tools ${version}
 
 <#assign classbody>
