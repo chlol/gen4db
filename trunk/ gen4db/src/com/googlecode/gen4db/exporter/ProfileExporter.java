@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.hibernate.mapping.Component;
+import org.hibernate.mapping.PersistentClass;
 import org.hibernate.tool.hbm2x.AbstractExporter;
 import org.hibernate.tool.hbm2x.ConfigurationNavigator;
 import org.hibernate.tool.hbm2x.ExporterException;
@@ -21,6 +22,14 @@ public class ProfileExporter extends AbstractExporter {
 	private String basePackage = null;
 	private String profile = null;//example:service,model,web
 	private boolean isJavaClass = true;
+
+	public ProfileExporter(String templateName, String basePackage, String profile, boolean isJavaClass) {
+		super();
+		this.templateName = templateName;
+		this.basePackage = basePackage;
+		this.profile = profile;
+		this.isJavaClass = isJavaClass;
+	}
 
 	public String getProfile() {
 		return profile;
@@ -89,8 +98,9 @@ public class ProfileExporter extends AbstractExporter {
 		additionalContext.put("clazz", element.getDecoratedObject());
 		//if generate java class ,the package=basePackage + profile + module,the filename = the package + name;
 		//else the filename = profile + module + name
+		PersistentClass pClazz = (PersistentClass) element.getDecoratedObject() ;
 		String filename = null; 
-		String tableName = "";
+		String tableName = pClazz.getTable().getName();
 		if (this.isJavaClass) {
 			String thePackage = this.basePackage + (this.profile == null?"":"."+this.profile) + this.getModuleName(tableName) == null?"":"." + this.getModuleName(tableName);
 			
