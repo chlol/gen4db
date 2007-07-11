@@ -20,7 +20,11 @@ public class Util {
 		return name.replaceAll(".session", ".entity");
 	}
 	
-	public String getModuleName(String tableName) {
-		return "";
+	public String replacePackageDeclaration(String base,String profile,String module) {
+		return base.substring(0,base.length()-1) + "." + profile + "." + module + ";";
+	}
+	
+	public String replacePackage(String base,String profile,String module) {
+		return base + "." + profile + "." + module;
 	}
 }
