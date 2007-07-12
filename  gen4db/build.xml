@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<project name="gen4db" default="package" basedir=".">
+	<property file="build.properties" />
+	<property name="build.dir" value="${basedir}/classes" />
+	<property name="dist.dir" value="${basedir}/dist" />
+	<property name="gen.dir" value="${basedir}/gen" />
+
+	<path id="gen4db.classpath">
+		<fileset dir="lib" includes="*.jar" />
+	</path>
+
+	<target name="package" description="package gen4db">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<javac srcdir="src" destdir="${build.dir}" debug="true" optimize="true" classpathref="gen4db.classpath" />
+
+		<copy overwrite="false" tofile="${build.dir}">
+			<fileset dir="src" includes="*.xml" />
+		</copy>
+		<jar destfile="${dist.dir}/gen4db.jar">
+			<manifest>
+				<attribute name="Class-Path" value="gen4db.jar" />
+			</manifest>
+			<fileset dir="${build.dir}" />
+		</jar>
+	</target>
+
+	<target name="generate-all">
+		<mkdir dir="${gen.dir}" />
+		<taskdef name="hibernate" classname="com.googlecode.gen4db.ant.Gen4dbToolTask">
+			<classpath>
+				<fileset dir="lib">
+					<include name="*.jar" />
+				</fileset>
+				<pathelement path="${dist.dir}/gen4db.jar" />
+			</classpath>
+		</taskdef>
+		<hibernate templatepath=".">
+			<jdbcconfiguration propertyfile="build.properties" 
+				reverseStrategy="com.googlecode.gen4db.util.MyReverseEngineeringDelegator" 
+				packagename="${basePackage}" 
+				revengfile="resources/seam-gen.reveng.xml" detectmanytomany="true" />
+
+			<property key="hibernatetool.util.toolclass" value="com.googlecode.gen4db.util.Util" />
+			<profiletemplate ejb3="true" profile="model" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}.java" 
+				             template="template/pojo/Pojo.ftl" 
+				             destdir="${gen.dir}/src" foreach="entity" />
+			
+		</hibernate>
+
+		<taskdef name="javaformatter" classname="org.hibernate.tool.ant.JavaFormatterTask">
+			<classpath>
+				<fileset dir="lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</taskdef>
+
+		<javaformatter>
+			<fileset dir="${gen.dir}/src">
+				<include name="**/*.java" />
+			</fileset>
+		</javaformatter>
+
+		<echo message="Type 'seam restart' and go to http://localhost:8080/${project.name}" />
+
+	</target>
+</project>
