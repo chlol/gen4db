@@ -1,5 +1,7 @@
 package com.googlecode.gen4db.util;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -30,7 +32,7 @@ public class Configuration {
 
 	public static String JDBC_PASSWORD = "hibernate.connection.password";
 
-	private static String CONFIG_FILE = "/gen4db.xml";
+	private static String CONFIG_FILE = "gen4db.xml";
 
 	private static Document MY_DOC = null;
 
@@ -47,10 +49,10 @@ public class Configuration {
 	// init configuration
 	static {
 		SAXReader saxReader = new SAXReader();
-		String inputXml = Configuration.class.getClass().getResource(
-				CONFIG_FILE).getFile();
+		InputStream is = Configuration.class.getClassLoader().getResourceAsStream(CONFIG_FILE);
+		LOG.debug("Gen4db.xml InputStream : " + is);
 		try {
-			MY_DOC = saxReader.read(inputXml);
+			MY_DOC = saxReader.read(is);
 			//for database
 			DATABASE.hibernateDialect = MY_DOC.selectSingleNode(
 					"//database/hibernate.dialect").getText();
@@ -71,7 +73,7 @@ public class Configuration {
 					"//project/@basePackage").getText();
 			
 			//for prefix
-			String prefixes = MY_DOC.selectSingleNode("//project").getText();
+			String prefixes = MY_DOC.selectSingleNode("//prefix").getText();
 			if (prefixes != null && !prefixes.equals("")) {
 				PREFIX.tablePrefixes = prefixes.split(SEPARATOR);
 			}
@@ -98,7 +100,7 @@ public class Configuration {
 				if (tables != null && !tables.equals("")) {
 					String[] temp = tables.split(SEPARATOR);
 					for (int j = 0; j < temp.length; j++) {
-						TABLE_MODULE.put(temp[j], module);
+						TABLE_MODULE.put(temp[j].trim(), module.trim());
 					}
 				}
 			}

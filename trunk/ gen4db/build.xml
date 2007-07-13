@@ -27,7 +27,8 @@
 	</target>
 
 	<target name="generate-all">
-		<mkdir dir="${gen.dir}" />
+		<mkdir dir="${gen.dir}/src" />
+		<mkdir dir="${gen.dir}/view" />
 		<taskdef name="hibernate" classname="com.googlecode.gen4db.ant.Gen4dbToolTask">
 			<classpath>
 				<fileset dir="lib">
@@ -44,8 +45,14 @@
 
 			<property key="hibernatetool.util.toolclass" value="com.googlecode.gen4db.util.Util" />
 			<profiletemplate ejb3="true" profile="model" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}.java" 
-				             template="template/pojo/Pojo.ftl" 
+				             template="template/seam/pojo/Pojo.ftl" 
 				             destdir="${gen.dir}/src" foreach="entity" />
+			<profiletemplate profile="service" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}Home.java" 
+							             template="template/seam/service/EntityHome.java.ftl" 
+							             destdir="${gen.dir}/src" foreach="entity" />
+			<profiletemplate profile="service" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}List.java" 
+										             template="template/seam/service/EntityList.java.ftl" 
+										             destdir="${gen.dir}/src" foreach="entity" />
 			
 		</hibernate>
 

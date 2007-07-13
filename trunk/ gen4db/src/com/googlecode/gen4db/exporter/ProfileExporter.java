@@ -15,6 +15,9 @@ public class ProfileExporter extends GenericExporter {
 	private String profile = null;//example:service,model,web
 
 	public String getProfile() {
+		if (profile == null) {
+			return "";
+		}
 		return profile;
 	}
 
@@ -31,7 +34,9 @@ public class ProfileExporter extends GenericExporter {
 	}
 
 	protected void exportPOJO(Map additionalContext, POJOClass element) {
-		TemplateProducer producer = new TemplateProducer(getTemplateHelper(),getArtifactCollector());					
+		TemplateProducer producer = new TemplateProducer(getTemplateHelper(),getArtifactCollector());
+		log.debug("POJOClass Instance : " + element);
+		log.debug("POJOClass GetDecoratedObject Instance : " + element);
 		additionalContext.put("pojo", element);
 		additionalContext.put("clazz", element.getDecoratedObject());
 		//if generate java class ,the package=basePackage + profile + module,the filename = the package + name;
@@ -40,16 +45,17 @@ public class ProfileExporter extends GenericExporter {
 		String tableName = pClazz.getTable().getName();
 		String moduleName = this.getModuleName(tableName);
 		
-		additionalContext.put("profile", this.getProfile());
+		additionalContext.put("profile", this.getProfile());		
 		additionalContext.put("module", moduleName);
-		String filename = StringHelper.replace(this.getFilePattern(), "{class-name}", getClassNameForFile( element )); 
-		filename = StringHelper.replace(this.getFilePattern(), "{module-name}", moduleName); 
-		filename = StringHelper.replace(this.getFilePattern(), "{profile-name}", this.getProfile());
+		String filename = StringHelper.replace(this.getFilePattern(), "{class-name}", getClassNameForFile( element ));
+
+		filename = StringHelper.replace(filename, "{module-name}", moduleName.equals("")?null:moduleName); 
+		filename = StringHelper.replace(filename, "{profile-name}", this.getProfile());	
 		String packageLocation = StringHelper.replace(getPackageNameForFile( element ),".", "/");
 		if(StringHelper.isEmpty(packageLocation)) {
 			packageLocation = "."; // done to ensure default package classes doesn't end up in the root of the filesystem when outputdir=""
 		}
-		filename = StringHelper.replace(filename, "{package-name}", packageLocation);
+		filename = StringHelper.replace(filename, "{package-name}", packageLocation);		
 		if(filename.endsWith(".java") && filename.indexOf('$')>=0) {
 			log.warn("Filename for " + getClassNameForFile( element ) + " contains a $. Innerclass generation is not supported.");
 		}
@@ -57,6 +63,10 @@ public class ProfileExporter extends GenericExporter {
 	}
 	
 	protected String getModuleName(String tableName) {
-		return Configuration.MODULE.getTableModule(tableName);
+		String module = Configuration.MODULE.getTableModule(tableName);
+		if (module == null) {
+			module = "";
+		}
+		return module;
 	}
 }
