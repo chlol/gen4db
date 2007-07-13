@@ -21,7 +21,7 @@ public class MyReverseEngineeringDelegator extends
 		String[] prefixes = Configuration.PREFIX.getTablePrefixes();
 		TableIdentifier newTableIdentifier = tableIdentifier;
 
-		if (prefixes != null && !prefixes.equals("")) {
+		if (prefixes != null && prefixes.length > 0) {
 			for (int i = 0; i < prefixes.length; i++) {
 				if (tableName.startsWith(prefixes[i])) {
 					tableName = tableName.substring(prefixes[i].length());
