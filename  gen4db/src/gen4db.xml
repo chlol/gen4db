@@ -20,6 +20,16 @@
 		<module name="admin">
 			app_user,role
 		</module>
+		<module name="eatery">
+			eatery,action_info,rank,rank_item
+		</module>
+		<module name="menu">
+			menu_dictionary,course,course_method,method_video,
+			course_item,menu,breakfast,lunch,supper
+		</module>
+		<module name="resource">
+			category,resource,resource_price
+		</module>
 	</modules>
-	<prefix>app_,test_</prefix>
+	<prefix>app_</prefix>
 </gen4db>
