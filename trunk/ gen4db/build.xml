@@ -45,13 +45,13 @@
 			<profiletemplate ejb3="true" profile="model" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}.java" template="template/seam/pojo/Pojo.ftl" destdir="${gen.dir}/src" />
 			<profiletemplate profile="service" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}Home.java" template="template/seam/service/EntityHome.java.ftl" destdir="${gen.dir}/src" />
 			<profiletemplate profile="service" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}List.java" template="template/seam/service/EntityList.java.ftl" destdir="${gen.dir}/src" />
-			<profiletemplate filepattern="{module-name}/{class-name}List.xhtml" template="template/seam/view/list.xhtml.ftl" destdir="${gen.dir}/view" />
-			<profiletemplate filepattern="{module-name}/{class-name}.xhtml" template="template/seam/view/view.xhtml.ftl" destdir="${gen.dir}/view" />
-			<profiletemplate filepattern="{module-name}/{class-name}.page.xml" template="template/seam/view/view.page.xml.ftl" destdir="${gen.dir}/view" />
-			<profiletemplate filepattern="{module-name}/{class-name}Edit.xhtml" template="template/seam/view/edit.xhtml.ftl" destdir="${gen.dir}/view" />
-			<profiletemplate filepattern="{module-name}/{class-name}Edit.page.xml" template="template/seam/view/edit.page.xml.ftl" destdir="${gen.dir}/view" />
-			<profiletemplate filepattern="{module-name}/{class-name}List.page.xml" template="template/seam/view/list.page.xml.ftl" destdir="${gen.dir}/view" />
-			<profiletemplate filepattern="menu.xhtml" template="template/seam/view/layout/menu.xhtml.ftl" destdir="${gen.dir}/view" />
+			<profiletemplate filepattern="{module-name}/{class-name}List.xhtml" template="template/seam/icefaces/list.xhtml.ftl" destdir="${gen.dir}/view" />
+			<profiletemplate filepattern="{module-name}/{class-name}.xhtml" template="template/seam/icefaces/view.xhtml.ftl" destdir="${gen.dir}/view" />
+			<profiletemplate filepattern="{module-name}/{class-name}.page.xml" template="template/seam/icefaces/view.page.xml.ftl" destdir="${gen.dir}/view" />
+			<profiletemplate filepattern="{module-name}/{class-name}Edit.xhtml" template="template/seam/icefaces/edit.xhtml.ftl" destdir="${gen.dir}/view" />
+			<profiletemplate filepattern="{module-name}/{class-name}Edit.page.xml" template="template/seam/icefaces/edit.page.xml.ftl" destdir="${gen.dir}/view" />
+			<profiletemplate filepattern="{module-name}/{class-name}List.page.xml" template="template/seam/icefaces/list.page.xml.ftl" destdir="${gen.dir}/view" />
+			<profiletemplate filepattern="menu.xhtml" template="template/seam/icefaces/layout/menu.xhtml.ftl" destdir="${gen.dir}/view" />
 
 		</hibernate>
 
