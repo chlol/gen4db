@@ -23,11 +23,8 @@ public class ProfileExporterTask extends ExporterTask {
 
 	private boolean isEjb3 = false;
 
-	public Gen4dbToolTask myParent = null;
-
 	public ProfileExporterTask(Gen4dbToolTask parent) {
 		super(parent);
-		myParent = parent;
 	}
 
 	public Exporter createExporter() {
