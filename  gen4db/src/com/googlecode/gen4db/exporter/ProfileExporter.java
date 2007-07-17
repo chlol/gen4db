@@ -3,9 +3,11 @@ package com.googlecode.gen4db.exporter;
 import java.io.File;
 import java.util.Map;
 
+import org.hibernate.mapping.Component;
 import org.hibernate.mapping.PersistentClass;
 import org.hibernate.tool.hbm2x.GenericExporter;
 import org.hibernate.tool.hbm2x.TemplateProducer;
+import org.hibernate.tool.hbm2x.pojo.ComponentPOJOClass;
 import org.hibernate.tool.hbm2x.pojo.POJOClass;
 import org.hibernate.util.StringHelper;
 
@@ -25,15 +27,15 @@ public class ProfileExporter extends GenericExporter {
 		super();
 	}
 
-	public ProfileExporter(org.hibernate.cfg.Configuration arg0, File arg1) {
-		super(arg0, arg1);
+	public ProfileExporter(org.hibernate.cfg.Configuration cfg, File outputdir) {
+		super(cfg, outputdir);
 	}
 
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
 
-	protected void exportPOJO(Map additionalContext, POJOClass element) {
+	protected void exportPOJO(Map additionalContext, POJOClass element) {try {
 		TemplateProducer producer = new TemplateProducer(getTemplateHelper(),getArtifactCollector());
 		log.debug("POJOClass Instance : " + element);
 		log.debug("POJOClass GetDecoratedObject Instance : " + element);
@@ -41,8 +43,20 @@ public class ProfileExporter extends GenericExporter {
 		additionalContext.put("clazz", element.getDecoratedObject());
 		//if generate java class ,the package=basePackage + profile + module,the filename = the package + name;
 		//else the filename = profile + module + name
-		PersistentClass pClazz = (PersistentClass) element.getDecoratedObject() ;		
-		String tableName = pClazz.getTable().getName();
+		
+		String tableName = null;
+		Object obj = element.getDecoratedObject();
+		if (obj instanceof PersistentClass) {
+			PersistentClass pClazz = (PersistentClass) obj ;		
+			tableName = pClazz.getTable().getName();
+		}
+		else if (obj instanceof Component) {
+			Component pClazz = (Component) obj ;		
+			tableName = pClazz.getTable().getName();
+		}
+		if (tableName == null || tableName.equals("")) {
+			log.error("Cann't get the table name");
+		}
 		String moduleName = this.getModuleName(tableName);
 		
 		additionalContext.put("profile", this.getProfile());		
@@ -59,7 +73,7 @@ public class ProfileExporter extends GenericExporter {
 		if(filename.endsWith(".java") && filename.indexOf('$')>=0) {
 			log.warn("Filename for " + getClassNameForFile( element ) + " contains a $. Innerclass generation is not supported.");
 		}
-		producer.produce(additionalContext, getTemplateName(), new File(getOutputDirectory(),filename), this.getTemplateName());
+		producer.produce(additionalContext, getTemplateName(), new File(getOutputDirectory(),filename), this.getTemplateName());}catch(Exception e){e.printStackTrace();}
 	}
 	
 	protected String getModuleName(String tableName) {
@@ -71,7 +85,6 @@ public class ProfileExporter extends GenericExporter {
 	}
 	
 	protected void setupContext() {
-		//TODO: this safe guard should be in the root templates instead for each variable they depend on.
 		if(!getProperties().containsKey("ejb3")) {
 			getProperties().put("ejb3", "false");
 		}
