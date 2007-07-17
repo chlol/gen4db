@@ -69,4 +69,15 @@ public class ProfileExporter extends GenericExporter {
 		}
 		return module;
 	}
+	
+	protected void setupContext() {
+		//TODO: this safe guard should be in the root templates instead for each variable they depend on.
+		if(!getProperties().containsKey("ejb3")) {
+			getProperties().put("ejb3", "false");
+		}
+		if(!getProperties().containsKey("jdk5")) {
+			getProperties().put("jdk5", "false");
+		}	
+		super.setupContext();
+	}
 }
