@@ -25,7 +25,7 @@
 		</module>
 		<module name="menu">
 			menu_dictionary,course,course_method,method_video,
-			course_item,menu,breakfast,lunch,supper
+			course_item,menu,breakfast,lunch,supper,menu_item
 		</module>
 		<module name="resource">
 			category,resource,resource_price
