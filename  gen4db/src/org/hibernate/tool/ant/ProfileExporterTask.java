@@ -53,22 +53,20 @@ public class ProfileExporterTask extends ExporterTask {
 	public Exporter configureExporter(Exporter exporter) {
 		super.configureExporter(exporter);
 
-		if (exporter instanceof ProfileExporter) {
-			log.debug("begin set ProfileExporter......");
-			ProfileExporter exp = (ProfileExporter) exporter;
-			if (filePattern != null) {
-				exp.setFilePattern(filePattern);
-			}
-			if (templateName != null) {
-				exp.setTemplateName(templateName);
-			}
-			if (profile != null) {
-				exp.setProfile(profile);
-			}
-			if (isEjb3) {
-				exp.getProperties().setProperty("ejb3", "" + isEjb3);
-				exp.getProperties().setProperty("jdk5", "" + isEjb3);
-			}
+		log.debug("begin set ProfileExporter......");
+		ProfileExporter exp = (ProfileExporter) exporter;
+		if (filePattern != null) {
+			exp.setFilePattern(filePattern);
+		}
+		if (templateName != null) {
+			exp.setTemplateName(templateName);
+		}
+		if (profile != null) {
+			exp.setProfile(profile);
+		}
+		if (isEjb3) {
+			exp.getProperties().setProperty("ejb3", "" + isEjb3);
+			exp.getProperties().setProperty("jdk5", "" + isEjb3);
 		}
 
 		return exporter;

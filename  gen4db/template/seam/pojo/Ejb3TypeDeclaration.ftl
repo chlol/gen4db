@@ -9,6 +9,9 @@
 </#if><#if clazz.table.catalog?exists>
     ,catalog="${clazz.table.catalog}"
 </#if>
-)
+<#assign uniqueConstraint=pojo.generateAnnTableUniqueConstraint()>
+<#if uniqueConstraint?has_content>
+    , uniqueConstraints = ${uniqueConstraint} 
+</#if>)
 </#if>
 </#if>

@@ -8,9 +8,7 @@
 </#if>
 <#if c2h.isManyToOne(property)>
 <#--TODO support @OneToOne true and false-->    
-@${pojo.importType("javax.persistence.ManyToOne")}(cascade={${pojo.getCascadeType(property)}},
-        fetch=${pojo.getFetchType(property)})
-    ${pojo.getHibernateCascadeTypeAnnotation(property)}
+${pojo.generateManyToOneAnnotation(property)}
 <#--TODO support optional and targetEntity-->    
 ${pojo.generateJoinColumnsAnnotation(property)}
 <#elseif c2h.isCollection(property)>
