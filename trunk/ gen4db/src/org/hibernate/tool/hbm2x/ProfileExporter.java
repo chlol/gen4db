@@ -1,4 +1,4 @@
-package com.googlecode.gen4db.exporter;
+package org.hibernate.tool.hbm2x;
 
 import java.io.File;
 import java.util.Map;
@@ -7,7 +7,6 @@ import org.hibernate.mapping.Component;
 import org.hibernate.mapping.PersistentClass;
 import org.hibernate.tool.hbm2x.GenericExporter;
 import org.hibernate.tool.hbm2x.TemplateProducer;
-import org.hibernate.tool.hbm2x.pojo.ComponentPOJOClass;
 import org.hibernate.tool.hbm2x.pojo.POJOClass;
 import org.hibernate.util.StringHelper;
 

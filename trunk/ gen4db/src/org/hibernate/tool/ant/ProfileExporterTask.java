@@ -2,22 +2,15 @@ package org.hibernate.tool.ant;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.tool.ant.ExporterTask;
+import org.hibernate.tool.ant.GenericExporterTask;
 import org.hibernate.tool.hbm2x.Exporter;
+import org.hibernate.tool.hbm2x.ProfileExporter;
 import org.hibernate.util.ReflectHelper;
 import org.apache.tools.ant.BuildException;
 
-import com.googlecode.gen4db.ant.Gen4dbToolTask;
-import com.googlecode.gen4db.exporter.ProfileExporter;
 
-public class ProfileExporterTask extends ExporterTask {
+public class ProfileExporterTask extends GenericExporterTask {
 	protected Log log = LogFactory.getLog(ProfileExporterTask.class);
-
-	private String templateName = null;
-
-	private String filePattern = null;
-
-	private String exporterClass;
 
 	private String profile = null;
 
@@ -72,35 +65,7 @@ public class ProfileExporterTask extends ExporterTask {
 		return exporter;
 	}
 
-	/**
-	 * @return the filePattern
-	 */
-	public String getFilePattern() {
-		return filePattern;
-	}
-
-	/**
-	 * @param filePattern
-	 *            the filePattern to set
-	 */
-	public void setFilePattern(String filePattern) {
-		this.filePattern = filePattern;
-	}
-
-	/**
-	 * @return the templateName
-	 */
-	public String getTemplate() {
-		return templateName;
-	}
-
-	/**
-	 * @param templateName
-	 *            the templateName to set
-	 */
-	public void setTemplate(String templateName) {
-		this.templateName = templateName;
-	}
+	
 
 	/**
 	 * @return the isEjb3
@@ -132,22 +97,8 @@ public class ProfileExporterTask extends ExporterTask {
 		this.profile = profile;
 	}
 
-	/**
-	 * @return the exporterClass
-	 */
-	public String getExporterClass() {
-		return exporterClass;
-	}
 
-	/**
-	 * @param exporterClass
-	 *            the exporterClass to set
-	 */
-	public void setExporterClass(String exporterClass) {
-		this.exporterClass = exporterClass;
-	}
-
-	String getName() {
+	public String getName() {
 		return "Profile Exporter";
 	}
 

@@ -1,4 +1,4 @@
-package com.googlecode.gen4db.ant;
+package org.hibernate.tool.ant;
 
 import org.hibernate.tool.ant.ExporterTask;
 import org.hibernate.tool.ant.HibernateToolTask;
