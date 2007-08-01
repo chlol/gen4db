@@ -6,7 +6,7 @@
 <#assign column = componentProperty.columnIterator.next()>
 <#assign propertyType = componentProperty.value.typeName>
 
-            <s:decorate id="${componentProperty.name}Decoration" template="layout/edit.xhtml">
+            <s:decorate id="${componentProperty.name}Decoration" template="/layout/edit.xhtml">
                 <ui:define name="label">${componentProperty.name}</ui:define>
 <#if propertyType == "date">
                 <h:inputText id="${componentProperty.name}" 
@@ -129,7 +129,7 @@
 <#assign column = property.columnIterator.next()>
 <#assign propertyType = property.value.typeName>
 
-            <s:decorate id="${property.name}Decoration" template="layout/edit.xhtml">
+            <s:decorate id="${property.name}Decoration" template="/layout/edit.xhtml">
                 <ui:define name="label">${property.name}</ui:define>
 <#if propertyType == "date">
                 <h:inputText id="${property.name}" 

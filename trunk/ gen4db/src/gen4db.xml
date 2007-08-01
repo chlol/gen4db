@@ -7,7 +7,7 @@
 	<database>
 		<hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
 		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-		<jdbc.url><![CDATA[jdbc:mysql://localhost/myseam?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
+		<jdbc.url><![CDATA[jdbc:mysql://localhost/cai?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
 		<jdbc.username>root</jdbc.username>
 		<jdbc.password>root</jdbc.password>
 	</database>
