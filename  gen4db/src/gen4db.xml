@@ -27,7 +27,7 @@
 			menu_dictionary,course,course_method,method_video,course_item,menu,breakfast,lunch,supper,menu_item
 		</module>
 		<module name="resource">
-			category,resource,resource_price
+			category,resource,resource_price,region,resource_pictrue
 		</module>
 	</modules>
 	<prefix>app_</prefix>
