@@ -3,3 +3,5 @@
 3.hibernate tools 升级到beta10
 4.把表和列的注释生成到Model、Home和List里
 5.生成的Model的主键可根据配置来生成
+6.生成代码是,模板要可配置
+7.生成的List Bean的getMaxResults的值可配置

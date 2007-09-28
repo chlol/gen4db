@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 
 <project name="gen4db" default="package" basedir=".">
-	<property file="build.properties" />
+	
 	<property name="build.dir" value="${basedir}/classes" />
 	<property name="dist.dir" value="${basedir}/dist" />
-	<property name="gen.dir" value="${basedir}/gen" />
+	
 
 	<path id="gen4db.classpath">
 		<fileset dir="lib" includes="*.jar" />
@@ -27,8 +27,10 @@
 	</target>
 
 	<target name="generate-all">
+		<property file="gen4db_build.properties" />
 		<mkdir dir="${gen.dir}/src" />
 		<mkdir dir="${gen.dir}/view" />
+		
 		<taskdef name="hibernate" classname="org.hibernate.tool.ant.Gen4dbToolTask">
 			<classpath>
 				<fileset dir="lib">
@@ -38,7 +40,7 @@
 			</classpath>
 		</taskdef>
 		<hibernate templatepath=".">
-			<jdbcconfiguration propertyfile="build.properties" packagename="${basePackage}" reverseStrategy="com.googlecode.gen4db.util.MyReverseEngineeringDelegator" revengfile="resources/seam-gen.reveng.xml" detectmanytomany="true" />
+			<jdbcconfiguration propertyfile="gen4db_build.properties" packagename="${basePackage}" reverseStrategy="com.googlecode.gen4db.util.MyReverseEngineeringDelegator" revengfile="resources/seam-gen.reveng.xml" detectmanytomany="false" />
 
 			<property key="hibernatetool.util.toolclass" value="com.googlecode.gen4db.util.Util" />
 
