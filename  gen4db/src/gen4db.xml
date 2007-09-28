@@ -16,19 +16,18 @@
     <!-- modules,module,table have a prefix property used to filter the table prefix,
        if the child element' prefix has value,use its prefix to filter,or use its parent prefix value 
     -->
-	<modules >		
+	<modules >
+	<!--		
 		<module name="admin">
-			app_user,role
+			sys_menu,sys_role,sys_user,sys_role_resource,sys_user_resource,sys_user_role
 		</module>
-		<module name="eatery">
-			eatery,action_info,rank,rank_item
+		<module name="manhour">
+			mh_project,mh_project_delay,mh_project_user,mh_task,mh_task_delay,mh_task_user,mh_activity,mh_logs,mh_approve_activity,mh_activity_approve
 		</module>
-		<module name="menu">
-			menu_dictionary,course,course_method,method_video,course_item,menu,breakfast,lunch,supper,menu_item
-		</module>
-		<module name="resource">
-			category,resource,resource_price,region,resource_pictrue
+	-->	
+		<module name="common">
+			sys_user,sys_role,sys_user_role
 		</module>
 	</modules>
-	<prefix>app_</prefix>
+	<prefix>mh_,sys</prefix>
 </gen4db>
