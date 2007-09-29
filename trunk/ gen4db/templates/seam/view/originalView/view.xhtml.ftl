@@ -11,8 +11,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-                template="/layout/template.xhtml">
+                xmlns:rich="http://richfaces.org/rich"
+                template="layout/template.xhtml">
                        
 <ui:define name="body">
     
@@ -32,11 +32,11 @@
     
     <div class="actionButtons">      
 
-        <s:button view="/${module}/${editPageName}.xhtml" 
+        <s:button view="/${editPageName}.xhtml" 
                     id="edit" 
                  value="Edit"/>
 
-        <s:button view="/${module}/${'#'}{empty ${componentName}From ? '${masterPageName}' : ${componentName}From}.xhtml"
+        <s:button view="/${'#'}{empty ${componentName}From ? '${masterPageName}' : ${componentName}From}.xhtml"
                     id="done"
                  value="Done"/>
 
@@ -105,7 +105,7 @@
                 <f:facet name="header">action</f:facet>
                 <s:link id="view${parentName}" 
                      value="View" 
-                      view="/${module}/${parentPageName}.xhtml">
+                      view="/${parentPageName}.xhtml">
 <#if parentPojo.isComponent(parentPojo.identifierProperty)>
 <#foreach componentProperty in parentPojo.identifierProperty.value.propertyIterator>
                     <f:param name="${parentName}${util.upper(componentProperty.name)}" 
@@ -161,7 +161,7 @@
                 <f:facet name="header">action</f:facet>
                 <s:link id="select${childName}" 
                      value="Select" 
-                      view="/${module}/${childPageName}.xhtml">
+                      view="/${childPageName}.xhtml">
 <#if childPojo.isComponent(childPojo.identifierProperty)>
 <#foreach componentProperty in childPojo.identifierProperty.value.propertyIterator>
                     <f:param name="${childName}${util.upper(componentProperty.name)}" 
@@ -179,9 +179,9 @@
     </div>
     
     <div class="actionButtons">
-        <s:button id="add${childName}" 
+        <s:button 
                value="Add ${childName}"
-                view="/${module}/${childEditPageName}.xhtml">
+                view="/${childEditPageName}.xhtml">
             <f:param name="${componentName}${util.upper(pojo.identifierProperty.name)}" 
                     value="${'#'}{${homeName}.instance.${pojo.identifierProperty.name}}"/>
             <f:param name="${childName}From" value="${entityName}"/>
