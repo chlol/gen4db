@@ -4,13 +4,13 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:s="http://jboss.com/products/seam/taglib"
-        xmlns:rich="http://richfaces.ajax4jsf.org/rich">
+        xmlns:rich="http://richfaces.org/rich">
     <rich:toolBarGroup>
         <h:outputText value="${'#'}{projectName}:"/>
 	    <s:link view="/home.xhtml" value="Home"/>
 	</rich:toolBarGroup>
 <#foreach entity in c2j.getPOJOIterator(cfg.classMappings)>
-	<s:link view="/${entity.shortName}List.xhtml" 
+	<s:link view="/${module}/${entity.shortName}List.xhtml" 
 	       value="${entity.shortName} List" 
 	 propagation="none"/>
 </#foreach>         

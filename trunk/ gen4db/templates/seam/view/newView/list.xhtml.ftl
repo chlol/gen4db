@@ -12,8 +12,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:rich="http://richfaces.ajax4jsf.org/rich"
-                template="layout/template.xhtml">
+                xmlns:rich="http://richfaces.org/rich"
+                template="/layout/template.xhtml">
                        
 <ui:define name="body">
     
@@ -28,7 +28,7 @@
 <#if c2j.isComponent(property)>
 <#foreach componentProperty in property.value.propertyIterator>
 <#if componentProperty.value.typeName == "string">
-            <s:decorate template="layout/display.xhtml">
+            <s:decorate template="/layout/display.xhtml">
                 <ui:define name="label">${'#'}{messages['${componentName}.${componentProperty.name}']}</ui:define>
                 <h:inputText id="${componentProperty.name}" value="${'#'}{${listName}.${componentName}.${property.name}.${componentProperty.name}}"/>
             </s:decorate>
@@ -37,7 +37,7 @@
 </#foreach>
 <#else>
 <#if property.value.typeName == "string">
-            <s:decorate template="layout/display.xhtml">
+            <s:decorate template="/layout/display.xhtml">
                 <ui:define name="label">${'#'}{messages['${componentName}.${property.name}']}</ui:define>
                 <h:inputText id="${property.name}" value="${'#'}{${listName}.${componentName}.${property.name}}"/>
             </s:decorate>
@@ -50,7 +50,7 @@
         </rich:simpleTogglePanel>
         
         <div class="actionButtons">
-            <h:commandButton id="search" value="${'#'}{messages['button.search']}" action="/${listPageName}.xhtml"/>
+            <h:commandButton id="search" value="${'#'}{messages['button.search']}" action="/${module}/${listPageName}.xhtml"/>
         </div>
         
     </h:form>
@@ -59,7 +59,7 @@
         <f:facet name="header">${'#'}{messages['${componentName}']}${'#'}{messages['label.searchResult.title']}</f:facet>
     <div class="results" id="${componentName}List">
 
-    <h:outputText value="${'#'}{messages['label.searchResult.null']}" 
+    <h:outputText value="${'#'}{messages['${componentName}']}${'#'}{messages['label.searchResult.notExist']}" 
                rendered="${'#'}{empty ${listName}.resultList}"/>
                
     <rich:dataTable id="${listName}" 
@@ -107,7 +107,7 @@
             <f:facet name="header">
 <#assign propertyPath = property.name + '.' + parentPojo.identifierProperty.name>
                 <s:link styleClass="columnHeader"
-                             value="${'#'}{messages['${componentName}.${property.name}']} ${parentPojo.identifierProperty.name} ${'#'}{${listName}.order=='${propertyPath} asc' ? messages.down : ( ${listName}.order=='${propertyPath} desc' ? messages.up : '' )}">
+                             value="${property.name} ${parentPojo.identifierProperty.name} ${'#'}{${listName}.order=='${propertyPath} asc' ? messages.down : ( ${listName}.order=='${propertyPath} desc' ? messages.up : '' )}">
                     <f:param name="order" value="${'#'}{${listName}.order=='${propertyPath} asc' ? '${propertyPath} desc' : '${propertyPath} asc'}"/>
                 </s:link>
             </f:facet>
@@ -118,8 +118,8 @@
 </#foreach>
         <h:column>
             <f:facet name="header">${'#'}{messages['label.header.operation']}</f:facet>
-            <s:link view="/${'#'}{empty from ? '${pageName}' : from}.xhtml" 
-                   value="${'#'}{messages['button.edit']}" 
+            <s:link view="/${module}/${'#'}{empty from ? '${pageName}' : from}.xhtml" 
+                   value="${'#'}{messages['button.select']}" 
                       id="${componentName}">
 <#if pojo.isComponent(pojo.identifierProperty)>
 <#foreach componentProperty in pojo.identifierProperty.value.propertyIterator>
@@ -139,14 +139,14 @@
     
     <div class="tableControl">
       
-        <s:link view="/${listPageName}.xhtml" 
+        <s:link view="/${module}/${listPageName}.xhtml" 
             rendered="${'#'}{${listName}.previousExists}" 
                value="${'#'}{messages.left}${'#'}{messages.left} ${'#'}{messages['label.pagination.firstPage']}"
                   id="firstPage">
           <f:param name="firstResult" value="0"/>
         </s:link>
         
-        <s:link view="/${listPageName}.xhtml" 
+        <s:link view="/${module}/${listPageName}.xhtml" 
             rendered="${'#'}{${listName}.previousExists}" 
                value="${'#'}{messages.left} ${'#'}{messages['label.pagination.previousPage']}"
                   id="previousPage">
@@ -154,7 +154,7 @@
                     value="${'#'}{${listName}.previousFirstResult}"/>
         </s:link>
         
-        <s:link view="/${listPageName}.xhtml" 
+        <s:link view="/${module}/${listPageName}.xhtml" 
             rendered="${'#'}{${listName}.nextExists}" 
                value="${'#'}{messages['label.pagination.nextPage']} ${'#'}{messages.right}"
                   id="nextPage">
@@ -162,7 +162,7 @@
                     value="${'#'}{${listName}.nextFirstResult}"/>
         </s:link>
         
-        <s:link view="/${listPageName}.xhtml" 
+        <s:link view="/${module}/${listPageName}.xhtml" 
             rendered="${'#'}{${listName}.nextExists}" 
                value="${'#'}{messages['label.pagination.lastPage']} ${'#'}{messages.right}${'#'}{messages.right}"
                   id="lastPage">
@@ -173,7 +173,7 @@
     </div>
     
     <s:div styleClass="actionButtons" rendered="${'#'}{empty from}">
-        <s:button view="/${editPageName}.xhtml"
+        <s:button view="/${module}/${editPageName}.xhtml"
                     id="create" 
                  value="${'#'}{messages['button.create']}${'#'}{messages['${componentName}']}">
 <#assign idName = componentName + util.upper(pojo.identifierProperty.name)>
