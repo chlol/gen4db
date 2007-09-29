@@ -76,7 +76,7 @@ public class ${entityName}Home extends ${pojo.importType("org.jboss.seam.framewo
 <#if parentPojo.shortName!=pojo.shortName>
 <#assign parentHomeName = util.lower(parentPojo.shortName) + "Home">
 <#assign setter = "set" + pojo.getPropertyName(property)>
-        ${parentPojo.shortName} ${property.name}=${parentHomeName}.getDefinedInstance();
+        ${modelPackage}.${parentPojo.shortName} ${property.name}=${parentHomeName}.getDefinedInstance();
         if ( ${property.name}!=null )
         {
            getInstance().${setter}(${property.name});
@@ -106,9 +106,9 @@ public class ${entityName}Home extends ${pojo.importType("org.jboss.seam.framewo
 <#assign getter = pojo.getGetterSignature(property)>
 <#if c2h.isOneToManyCollection(property)>
 <#assign childPojo = c2j.getPOJOClass(property.value.element.associatedClass)>
-    public ${pojo.importType("java.util.List")}<${childPojo.shortName}> ${getter}() {
+    public ${pojo.importType("java.util.List")}<${modelPackage}.${childPojo.shortName}> ${getter}() {
         return getInstance() == null ? 
-            null : new ${pojo.importType("java.util.ArrayList")}<${childPojo.shortName}>( getInstance().${getter}() );
+            null : new ${pojo.importType("java.util.ArrayList")}<${modelPackage}.${childPojo.shortName}>( getInstance().${getter}() );
     }
 </#if>
 </#foreach>

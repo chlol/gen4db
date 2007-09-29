@@ -5,8 +5,8 @@
 <#foreach componentProperty in property.value.propertyIterator>
 <#assign propertyType = componentProperty.value.typeName>
 
-        <s:decorate id="${componentProperty.name}" template="layout/display.xhtml">
-            <ui:define name="label">${componentProperty.name}</ui:define>
+        <s:decorate id="${componentProperty.name}" template="/layout/display.xhtml">
+            <ui:define name="label">${'#'}{messages['${componentName}.${componentProperty.name}']}</ui:define>
 <#if propertyType == "date">
             <h:outputText value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}">
                 <s:convertDateTime type="date" dateStyle="short"/>
@@ -35,7 +35,7 @@
 <#else>
 <#assign propertyType = property.value.typeName>
 
-        <s:decorate id="${property.name}" template="layout/display.xhtml">
+        <s:decorate id="${property.name}" template="/layout/display.xhtml">
             <ui:define name="label">${'#'}{messages['${componentName}.${property.name}']}</ui:define>
 <#if propertyType == "date">
             <h:outputText value="${'#'}{${homeName}.instance.${property.name}}">

@@ -27,4 +27,27 @@ public class Util {
 	public String replacePackage(String base,String profile,String module) {
 		return base + "." + profile + "." + module;
 	}
+	
+	public String getPrimaryKeyType() {
+		String result = "@javax.persistence.GeneratedValue(strategy=javax.persistence.GenerationType.AUTO)";
+		String type = Configuration.PRIMARY_KEY_TYPE.getPrimaryKeyType();
+		if ("IDENTITY".equals(type)) {
+			result = "@javax.persistence.GeneratedValue(strategy=javax.persistence.GenerationType.IDENTITY)";
+		}
+		else if ("SEQUENCE".equals(type)) {
+			result = "@javax.persistence.GeneratedValue(strategy=javax.persistence.GenerationType.SEQUENCE)";
+		}
+		else if ("TABLE".equals(type)) {
+			result = "@javax.persistence.GeneratedValue(strategy=javax.persistence.GenerationType.TABLE)";
+		}
+		else {
+			//do nothing
+		}
+		return result;
+	}
+	
+	//TODO
+	public String getSerialVersionUID() {
+		return "";
+	}
 }

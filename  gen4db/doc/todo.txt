@@ -1,7 +1,7 @@
 1.生成的类加个默认的serialVersionUID（private static final long serialVersionUID = -599045209173131274L;）
-2.Home和List类引用的Model类，增加import，目前认为所有类在同一个目录
+2.Home和List类引用的Model类，增加import，目前认为所有类在同一个目录(完成)
 3.hibernate tools 升级到beta10
 4.把表和列的注释生成到Model、Home和List里
-5.生成的Model的主键可根据配置来生成
-6.生成代码是,模板要可配置
+5.生成的Model的主键可根据配置来生成(完成)
+6.生成代码是,模板要可配置(完成)
 7.生成的List Bean的getMaxResults的值可配置

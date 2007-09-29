@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <project name="gen4db" default="package" basedir=".">
-	
+	<property file="gen4db_build.properties" />
 	<property name="build.dir" value="${basedir}/classes" />
 	<property name="dist.dir" value="${basedir}/dist" />
 	
@@ -31,29 +31,29 @@
 			<pathelement path="${dist.dir}/gen4db.jar" />
 	</path>
 
-	<target name="generate-all">
-		<property file="gen4db_build.properties" />
+	<target name="generate-all">		
 		<mkdir dir="${gen.dir}/src" />
 		<mkdir dir="${gen.dir}/view" />
+		<mkdir dir="${gen.dir}/resources" />
 		
 		<taskdef name="hibernate" classname="org.hibernate.tool.ant.Gen4dbToolTask" classpathref="gen4db.classpath"/>			
 		
 		<hibernate templatepath=".">
-			<jdbcconfiguration propertyfile="gen4db_build.properties" packagename="${basePackage}" reverseStrategy="com.googlecode.gen4db.util.MyReverseEngineeringDelegator" revengfile="${revengfile}" detectmanytomany="false" />
+			<jdbcconfiguration propertyfile="gen4db_build.properties" packagename="${basePackage}" reverseStrategy="com.googlecode.gen4db.util.MyReverseEngineeringDelegator" revengfile="${revengFile}" detectmanytomany="false" />
 
 			<property key="hibernatetool.util.toolclass" value="com.googlecode.gen4db.util.Util" />
 
-			<profiletemplate ejb3="true" profile="model" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}.java" template="${template.path.pojo}/Pojo.ftl" destdir="${gen.dir}/src" foreach="entity" />
-			<profiletemplate profile="service" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}Home.java" template="${template.path.service}/EntityHome.java.ftl" destdir="${gen.dir}/src" foreach="entity" />
-			<profiletemplate profile="service" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}List.java" template="${template.path.service}/EntityList.java.ftl" destdir="${gen.dir}/src" foreach="entity" />
+			<profiletemplate ejb3="true" profile="model" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}.java" template="${template.path.pojo}/Pojo.ftl" destdir="${gen.dir}/src/model" foreach="entity" />
+			<profiletemplate profile="service" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}Home.java" template="${template.path.service}/EntityHome.java.ftl" destdir="${gen.dir}/src/action" foreach="entity" />
+			<profiletemplate profile="service" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}List.java" template="${template.path.service}/EntityList.java.ftl" destdir="${gen.dir}/src/action" foreach="entity" />
 			<profiletemplate filepattern="{module-name}/{class-name}List.xhtml" template="${template.path.view}/list.xhtml.ftl" destdir="${gen.dir}/view" foreach="entity" />
 			<profiletemplate filepattern="{module-name}/{class-name}.xhtml" template="${template.path.view}/view.xhtml.ftl" destdir="${gen.dir}/view" foreach="entity" />
 			<profiletemplate filepattern="{module-name}/{class-name}.page.xml" template="${template.path.view}/view.page.xml.ftl" destdir="${gen.dir}/view" foreach="entity" />
 			<profiletemplate filepattern="{module-name}/{class-name}Edit.xhtml" template="${template.path.view}/edit.xhtml.ftl" destdir="${gen.dir}/view" foreach="entity" />
 			<profiletemplate filepattern="{module-name}/{class-name}Edit.page.xml" template="${template.path.view}/edit.page.xml.ftl" destdir="${gen.dir}/view" foreach="entity" />
 			<profiletemplate filepattern="{module-name}/{class-name}List.page.xml" template="${template.path.view}/list.page.xml.ftl" destdir="${gen.dir}/view" foreach="entity" />
-			<profiletemplate filepattern="menu.xhtml" template="${template.path.view}/layout/menu.xhtml.ftl" destdir="${gen.dir}/view" foreach="entity" />
-			<profiletemplate filepattern="messages_en.properties" template="${template.path.resource}/messages_en.ftl" destdir="${gen.dir}/src" foreach="entity" />
+			<profiletemplate filepattern="menu.xhtml" template="${template.path.view}/layout/menu.xhtml.ftl" destdir="${gen.dir}/view/layout" foreach="entity" />
+			<profiletemplate filepattern="messages_en.properties" template="${template.path.resource}/messages_en.ftl" destdir="${gen.dir}/resources" foreach="entity" />
 		</hibernate>
 
 		<taskdef name="javaformatter" classname="org.hibernate.tool.ant.JavaFormatterTask">

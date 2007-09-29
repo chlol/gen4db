@@ -2,6 +2,8 @@
 <#if pojo.hasIdentifierProperty()>
 <#if property.equals(clazz.identifierProperty)>
  ${pojo.generateAnnIdGenerator()}
+ <#assign primaryKeyTypeAnntation = util.getPrimaryKeyType()>
+ ${primaryKeyTypeAnntation}
 <#-- if this is the id property (getter)-->
 <#-- explicitly set the column name for this property-->
 </#if>

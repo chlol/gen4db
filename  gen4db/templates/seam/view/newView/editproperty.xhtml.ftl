@@ -2,31 +2,23 @@
 <#assign componentName = util.lower(entityName)>
 <#if !c2h.isCollection(property) && !c2h.isManyToOne(property)>
 <#assign propertyIsId = property.equals(pojo.identifierProperty)>
-<#if !propertyIsId || property.value.identifierGeneratorStrategy == "assigned">
+<#if !propertyIsId>
 <#if pojo.isComponent(property)>
 <#foreach componentProperty in property.value.propertyIterator>
 <#assign column = componentProperty.columnIterator.next()>
 <#assign propertyType = componentProperty.value.typeName>
 
-            <s:decorate id="${componentProperty.name}Decoration" template="layout/edit.xhtml">
+            <s:decorate id="${componentProperty.name}Decoration" template="/layout/edit.xhtml">
                 <ui:define name="label">${'#'}{messages['${componentName}.${componentProperty.name}']}</ui:define>
 <#if propertyType == "date">
-                <h:inputText id="${componentProperty.name}" 
-                      maxlength="10"
-                           size="10"
+				<rich:calendar id=${componentProperty.name}"
 <#if propertyIsId>
                        disabled="${'#'}{${homeName}.managed}"
 </#if>
 <#if !column.nullable>
                        required="true"
 </#if>
-                          value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}">
-                    <s:convertDateTime type="date" dateStyle="short" pattern="MM/dd/yyyy"/>
-                    <a:support event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
-                </h:inputText>
-                <s:selectDate for="${componentProperty.name}">
-                    <h:graphicImage url="img/dtpick.gif" style="margin-left:5px"/>
-                </s:selectDate>
+                          value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}" pattern="MM/dd/yyyy" event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
 <#elseif propertyType == "time">
                 <h:inputText id="${componentProperty.name}" 
                            size="5"
@@ -131,25 +123,17 @@
 <#assign column = property.columnIterator.next()>
 <#assign propertyType = property.value.typeName>
 
-            <s:decorate id="${property.name}Decoration" template="layout/edit.xhtml">
+            <s:decorate id="${property.name}Decoration" template="/layout/edit.xhtml">
                 <ui:define name="label">${'#'}{messages['${componentName}.${property.name}']}</ui:define>
 <#if propertyType == "date">
-                <h:inputText id="${property.name}" 
-                      maxlength="10"
-                           size="10"
+				<rich:calendar id="${property.name}" 
 <#if propertyIsId>
                        disabled="${'#'}{${homeName}.managed}"
 </#if>
 <#if !column.nullable>
                        required="true"
 </#if>
-                          value="${'#'}{${homeName}.instance.${property.name}}">
-                    <s:convertDateTime type="date" dateStyle="short" pattern="MM/dd/yyyy"/>
-                    <a:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
-                </h:inputText>
-                <s:selectDate for="${property.name}">
-                    <h:graphicImage url="img/dtpick.gif" style="margin-left:5px"/>
-                </s:selectDate>
+                          value="${'#'}{${homeName}.instance.${property.name}}" pattern="MM/dd/yyyy" event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
 <#elseif propertyType == "time">
                 <h:inputText id="${property.name}" 
                            size="5"
@@ -188,7 +172,9 @@
                        required="true"
 </#if>
                           value="${'#'}{${homeName}.instance.${property.name}}"
-                           size="${column.precision+6}"/>
+                           size="${column.precision+6}">
+                    <a:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
+                </h:inputText>
 <#elseif propertyType == "boolean" || propertyType == "yes_no" || propertyType == "true_false">
                 <h:selectBooleanCheckbox id="${property.name}"
 <#if !column.nullable>

@@ -1,33 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <gen4db>
-	<!-- project configuration -->
-	<project name="myseam" version="1.0" basePackage="com.googlecode.myseam"/>
-	
-	<!-- database configuration -->
-	<database>
-		<hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
-		<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-		<jdbc.url><![CDATA[jdbc:mysql://localhost/cai?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
-		<jdbc.username>root</jdbc.username>
-		<jdbc.password>root</jdbc.password>
-	</database>
-	
 	<!-- module configuration -->
-    <!-- modules,module,table have a prefix property used to filter the table prefix,
-       if the child element' prefix has value,use its prefix to filter,or use its parent prefix value 
-    -->
+	<!--  -->
 	<modules >
-	<!--		
-		<module name="admin">
-			sys_menu,sys_role,sys_user,sys_role_resource,sys_user_resource,sys_user_role
-		</module>
-		<module name="manhour">
-			mh_project,mh_project_delay,mh_project_user,mh_task,mh_task_delay,mh_task_user,mh_activity,mh_logs,mh_approve_activity,mh_activity_approve
-		</module>
-	-->	
 		<module name="common">
 			sys_user,sys_role,sys_user_role
 		</module>
 	</modules>
+	<!-- the all tables prefix -->
 	<prefix>mh_,sys</prefix>
+	<!-- the primary key generation type,the value must be in IDENTITY,SEQUENCE,TABLE,AUTO -->
+	<primaryKeyType>IDENTITY</primaryKeyType>
 </gen4db>
