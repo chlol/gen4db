@@ -6,3 +6,5 @@
 6.生成代码是,模板要可配置(完成)
 7.生成的List Bean的getMaxResults的值可配置
 8.生成Home,List,pages的测试用例
+9.改造list pages模板，改造分页的形式
+10.页面、类、操作的权限控制
