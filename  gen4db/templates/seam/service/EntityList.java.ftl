@@ -52,12 +52,6 @@ public class ${entityName}List extends EntityQuery
         return "select ${componentName} from ${entityName} ${componentName}";
     }
     
-    @Override
-    public Integer getMaxResults()
-    {
-    	return 25;
-    }
-    
     public ${entityName} get${entityName}()
     {
         return ${componentName};
