@@ -9,7 +9,7 @@
             <ui:define name="label">${'#'}{messages['${componentName}.${componentProperty.name}']}</ui:define>
 <#if propertyType == "date">
             <h:outputText value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}">
-                <s:convertDateTime type="date" dateStyle="short"/>
+                <s:convertDateTime type="date" dateStyle="short" pattern="${'#'}{messages['constant.dateFormat']}"/>
             </h:outputText>
 <#elseif propertyType == "time">
             <h:outputText value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}">
@@ -17,7 +17,7 @@
             </h:outputText>
 <#elseif propertyType == "timestamp">
             <h:outputText value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}">
-                <s:convertDateTime type="both" dateStyle="short"/>
+                <s:convertDateTime type="both" dateStyle="short" pattern="${'#'}{messages['constant.dateLongFormat']}"/>
             </h:outputText>
 <#elseif propertyType == "big_decimal">
             <h:outputText value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}">
@@ -39,7 +39,7 @@
             <ui:define name="label">${'#'}{messages['${componentName}.${property.name}']}</ui:define>
 <#if propertyType == "date">
             <h:outputText value="${'#'}{${homeName}.instance.${property.name}}">
-                <s:convertDateTime type="date" dateStyle="short"/>
+                <s:convertDateTime type="date" dateStyle="short" pattern="${'#'}{messages['constant.dateFormat']}"/>
             </h:outputText>
 <#elseif propertyType == "time">
             <h:outputText value="${'#'}{${homeName}.instance.${property.name}}">
@@ -47,7 +47,7 @@
             </h:outputText>
 <#elseif propertyType == "timestamp">
             <h:outputText value="${'#'}{${homeName}.instance.${property.name}}">
-                <s:convertDateTime type="both" dateStyle="short"/>
+                <s:convertDateTime type="both" dateStyle="short" pattern="${'#'}{messages['constant.dateLongFormat']}"/>
             </h:outputText>
 <#elseif propertyType == "big_decimal">
             <h:outputText value="${'#'}{${homeName}.instance.${property.name}}">
