@@ -4,7 +4,7 @@
 4.把表和列的注释生成到Model、Home和List里
 5.生成的Model的主键可根据配置来生成(完成)
 6.生成代码是,模板要可配置(完成)
-7.生成的List Bean的getMaxResults的值可配置
+7.生成的List Bean的getMaxResults的值可配置(完成)
 8.生成Home,List,pages的测试用例
-9.改造list pages模板，改造分页的形式
+9.改造list pages模板，改造分页的形式(完成)
 10.页面、类、操作的权限控制
