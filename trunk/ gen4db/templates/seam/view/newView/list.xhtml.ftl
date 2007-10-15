@@ -54,17 +54,18 @@
         </div>
         
     </h:form>
-    
+    <h:form id="${listName}Form">
     <rich:panel>
         <f:facet name="header">${'#'}{messages['${componentName}']}${'#'}{messages['label.searchResult.title']}</f:facet>
-    <div class="results" id="${componentName}List">
+    <div class="results" id="${componentName}ListResults">
 
     <h:outputText value="${'#'}{messages['${componentName}']}${'#'}{messages['label.searchResult.notExist']}" 
                rendered="${'#'}{empty ${listName}.resultList}"/>
-               
+    <rich:datascroller align="${'#'}{messages['constant.datascroller.align']}"  for="${listName}" maxPages="${'#'}{messages['constant.datascroller.maxPages']}" rendered="${'#'}{not empty roleList.resultList}"/>           
     <rich:dataTable id="${listName}" 
                 var="${componentName}"
               value="${'#'}{${listName}.resultList}" 
+               rows="${'#'}{messages['constant.pageSize']}"
            rendered="${'#'}{not empty ${listName}.resultList}">
 <#foreach property in pojo.allPropertiesIterator>
 <#if !c2h.isCollection(property) && !c2h.isManyToOne(property)>
@@ -83,7 +84,17 @@
                     <f:param name="order" value="${'#'}{${listName}.order=='${property.name} asc' ? '${property.name} desc' : '${property.name} asc'}"/>
                 </s:link>
             </f:facet>
-            ${'#'}{${componentName}.${property.name}}
+            <#if property.value.typeName == "timestamp">
+            	<h:outputText value="${'#'}{${componentName}.${property.name}}">
+            		<s:convertDateTime type="both" dateStyle="short" pattern="${'#'}{messages['constant.dateLongFormat']}"/>
+            	</h:outputText>
+            <#elseif property.value.typeName == "date">
+            	<h:outputText value="${'#'}{${componentName}.${property.name}}">
+            		<s:convertDateTime type="both" dateStyle="short" pattern="${'#'}{messages['constant.dateFormat']}"/>
+            	</h:outputText>
+            <#else>
+            	${'#'}{${componentName}.${property.name}}
+            </#if>	
         </h:column>
 </#if>
 </#if>
@@ -119,7 +130,7 @@
         <h:column>
             <f:facet name="header">${'#'}{messages['label.header.operation']}</f:facet>
             <s:link view="/${module}/${'#'}{empty from ? '${pageName}' : from}.xhtml" 
-                   value="${'#'}{messages['button.select']}" 
+                   value="${'#'}{messages['button.edit']}" 
                       id="${componentName}">
 <#if pojo.isComponent(pojo.identifierProperty)>
 <#foreach componentProperty in pojo.identifierProperty.value.propertyIterator>
@@ -136,41 +147,8 @@
 
     </div>
     </rich:panel>
+    </h:form>
     
-    <div class="tableControl">
-      
-        <s:link view="/${module}/${listPageName}.xhtml" 
-            rendered="${'#'}{${listName}.previousExists}" 
-               value="${'#'}{messages.left}${'#'}{messages.left} ${'#'}{messages['label.pagination.firstPage']}"
-                  id="firstPage">
-          <f:param name="firstResult" value="0"/>
-        </s:link>
-        
-        <s:link view="/${module}/${listPageName}.xhtml" 
-            rendered="${'#'}{${listName}.previousExists}" 
-               value="${'#'}{messages.left} ${'#'}{messages['label.pagination.previousPage']}"
-                  id="previousPage">
-            <f:param name="firstResult" 
-                    value="${'#'}{${listName}.previousFirstResult}"/>
-        </s:link>
-        
-        <s:link view="/${module}/${listPageName}.xhtml" 
-            rendered="${'#'}{${listName}.nextExists}" 
-               value="${'#'}{messages['label.pagination.nextPage']} ${'#'}{messages.right}"
-                  id="nextPage">
-            <f:param name="firstResult" 
-                    value="${'#'}{${listName}.nextFirstResult}"/>
-        </s:link>
-        
-        <s:link view="/${module}/${listPageName}.xhtml" 
-            rendered="${'#'}{${listName}.nextExists}" 
-               value="${'#'}{messages['label.pagination.lastPage']} ${'#'}{messages.right}${'#'}{messages.right}"
-                  id="lastPage">
-            <f:param name="firstResult" 
-                    value="${'#'}{${listName}.lastFirstResult}"/>
-        </s:link>
-        
-    </div>
     
     <s:div styleClass="actionButtons" rendered="${'#'}{empty from}">
         <s:button view="/${module}/${editPageName}.xhtml"

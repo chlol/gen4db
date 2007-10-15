@@ -11,14 +11,17 @@
             <s:decorate id="${componentProperty.name}Decoration" template="/layout/edit.xhtml">
                 <ui:define name="label">${'#'}{messages['${componentName}.${componentProperty.name}']}</ui:define>
 <#if propertyType == "date">
-				<rich:calendar id=${componentProperty.name}"
+				<rich:calendar id=${componentProperty.name}"  styleClass="calendar"  direction="auto" zindex="3000"
 <#if propertyIsId>
                        disabled="${'#'}{${homeName}.managed}"
 </#if>
 <#if !column.nullable>
                        required="true"
 </#if>
-                          value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}" pattern="MM/dd/yyyy" event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
+                       value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}" 
+                       datePattern="${'#'}{messages['constant.dateFormat']}" 
+                       event="onblur"  
+                       bypassUpdates="true"/>
 <#elseif propertyType == "time">
                 <h:inputText id="${componentProperty.name}" 
                            size="5"
@@ -30,15 +33,18 @@
                     <a:support event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
                 </h:inputText>
 <#elseif propertyType == "timestamp">
-                <h:inputText id="${componentProperty.name}" 
-                           size="16"
+				<rich:calendar id=${componentProperty.name}"  styleClass="calendar"  direction="auto" zindex="3000"
+<#if propertyIsId>
+                       disabled="${'#'}{${homeName}.managed}"
+</#if>
 <#if !column.nullable>
                        required="true"
 </#if>
-                          value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}">
-                     <s:convertDateTime type="both" dateStyle="short"/>
-                     <a:support event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
-                </h:inputText>
+                       value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}" 
+                       datePattern="${'#'}{messages['constant.dateFormat']}" 
+                       event="onblur"
+                       bypassUpdates="true"/>
+
 <#elseif propertyType == "big_decimal">
                 <h:inputText id="${componentProperty.name}" 
 <#if !column.nullable>
@@ -126,14 +132,17 @@
             <s:decorate id="${property.name}Decoration" template="/layout/edit.xhtml">
                 <ui:define name="label">${'#'}{messages['${componentName}.${property.name}']}</ui:define>
 <#if propertyType == "date">
-				<rich:calendar id="${property.name}" 
+				<rich:calendar id="${property.name}"  styleClass="calendar"  direction="auto" zindex="3000"
 <#if propertyIsId>
                        disabled="${'#'}{${homeName}.managed}"
 </#if>
 <#if !column.nullable>
                        required="true"
 </#if>
-                          value="${'#'}{${homeName}.instance.${property.name}}" pattern="MM/dd/yyyy" event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
+                       value="${'#'}{${homeName}.instance.${property.name}}" 
+                       datePattern="${'#'}{messages['constant.dateFormat']}" 
+                       event="onblur"  
+                       bypassUpdates="true"/>
 <#elseif propertyType == "time">
                 <h:inputText id="${property.name}" 
                            size="5"
@@ -145,15 +154,17 @@
                     <a:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
                 </h:inputText>
 <#elseif propertyType == "timestamp">
-                <h:inputText id="${property.name}" 
-                           size="16"
+				<rich:calendar id="${property.name}"  styleClass="calendar"  direction="auto" zindex="3000"
+<#if propertyIsId>
+                       disabled="${'#'}{${homeName}.managed}"
+</#if>
 <#if !column.nullable>
                        required="true"
 </#if>
-                          value="${'#'}{${homeName}.instance.${property.name}}">
-                    <s:convertDateTime type="both" dateStyle="short"/>
-                    <a:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
-                </h:inputText>
+                       value="${'#'}{${homeName}.instance.${property.name}}" 
+                       datePattern="${'#'}{messages['constant.dateFormat']}" 
+                       event="onblur"  
+                       bypassUpdates="true"/>
 <#elseif propertyType == "big_decimal">
                 <h:inputText id="${property.name}" 
 <#if !column.nullable>
