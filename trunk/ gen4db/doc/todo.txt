@@ -9,3 +9,4 @@
 9.改造list pages模板，改造分页的形式(完成)
 10.页面、类、操作的权限控制
 11.修改页面模板，<a: --> <a4j:
+12.entity,list,home等bean的name用模块名+类名
