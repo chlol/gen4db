@@ -10,3 +10,4 @@
 10.页面、类、操作的权限控制
 11.修改页面模板，<a: --> <a4j:
 12.entity,list,home等bean的name用模块名+类名
+13.gen4db.xml增加dtd控制
