@@ -1,13 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <gen4db>
 	<!-- module configuration -->
-	<!--  -->
+	<!--
+		one applicatin cant have more than one modules,and in one module 
+		can have more than one tables separated by comma
+	-->
 	<modules >
 		<module name="common">
 			sys_user,sys_role,sys_user_role
 		</module>
 	</modules>
-	<!-- the all tables prefix -->
+	<!-- the all tables prefix,separated by comma -->
 	<prefix>mh_,sys</prefix>
 	<!-- the primary key generation type,the value must be in IDENTITY,SEQUENCE,TABLE,AUTO -->
 	<primaryKeyType>IDENTITY</primaryKeyType>
