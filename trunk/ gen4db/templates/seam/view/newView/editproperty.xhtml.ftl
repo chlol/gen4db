@@ -30,7 +30,7 @@
 </#if>
                           value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}">
                     <s:convertDateTime type="time"/>
-                    <a:support event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
+                    <a4j:support event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
                 </h:inputText>
 <#elseif propertyType == "timestamp">
 				<rich:calendar id=${componentProperty.name}"  styleClass="calendar"  direction="auto" zindex="3000"
@@ -52,7 +52,7 @@
 </#if>
                           value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}"
                            size="${column.precision+7}">
-                    <a:support event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
+                    <a4j:support event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
                 </h:inputText>
 <#elseif propertyType == "big_integer">
                 <h:inputText id="${componentProperty.name}" 
@@ -64,7 +64,7 @@
 </#if>
                           value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}"
                            size="${column.precision+6}">
-                    <a:support event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
+                    <a4j:support event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
                 </h:inputText>
 <#elseif propertyType == "boolean" || propertyType == "yes_no" || propertyType == "true_false">
                  <h:selectBooleanCheckbox id="${componentProperty.name}"
@@ -108,7 +108,7 @@
                           size="${size}"
                      maxlength="${column.length}"
                          value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}">
-                    <a:support event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
+                    <a4j:support event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
                 </h:inputText>
 </#if>
 <#else>
@@ -120,7 +120,7 @@
                        disabled="${'#'}{${homeName}.managed}"
 </#if>
                           value="${'#'}{${homeName}.instance.${property.name}.${componentProperty.name}}">
-                    <a:support event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
+                    <a4j:support event="onblur" reRender="${componentProperty.name}Decoration" bypassUpdates="true"/>
                 </h:inputText>
 </#if>
             </s:decorate>
@@ -151,7 +151,7 @@
 </#if>
                           value="${'#'}{${homeName}.instance.${property.name}}">
                     <s:convertDateTime type="time"/>
-                    <a:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
+                    <a4j:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
                 </h:inputText>
 <#elseif propertyType == "timestamp">
 				<rich:calendar id="${property.name}"  styleClass="calendar"  direction="auto" zindex="3000"
@@ -172,7 +172,7 @@
 </#if>
                           value="${'#'}{${homeName}.instance.${property.name}}"
                            size="${column.precision+7}">
-                    <a:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
+                    <a4j:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
                 </h:inputText>
 <#elseif propertyType == "big_integer">
                 <h:inputText id="${property.name}" 
@@ -184,7 +184,7 @@
 </#if>
                           value="${'#'}{${homeName}.instance.${property.name}}"
                            size="${column.precision+6}">
-                    <a:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
+                    <a4j:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
                 </h:inputText>
 <#elseif propertyType == "boolean" || propertyType == "yes_no" || propertyType == "true_false">
                 <h:selectBooleanCheckbox id="${property.name}"
@@ -228,7 +228,7 @@
                            size="${size}"
                       maxlength="${column.length}"
                           value="${'#'}{${homeName}.instance.${property.name}}">
-                    <a:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
+                    <a4j:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
                 </h:inputText>
 </#if>
 <#else>
@@ -240,7 +240,7 @@
                        disabled="${'#'}{${homeName}.managed}"
 </#if>
                           value="${'#'}{${homeName}.instance.${property.name}}">
-                    <a:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
+                    <a4j:support event="onblur" reRender="${property.name}Decoration" bypassUpdates="true"/>
                 </h:inputText>
 </#if>
             </s:decorate>
