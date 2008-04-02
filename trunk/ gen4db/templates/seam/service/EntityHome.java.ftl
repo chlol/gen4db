@@ -8,7 +8,6 @@ ${packageDeclaration}
 import ${modelPackage}.${entityName};
 
 @${pojo.importType("org.jboss.seam.annotations.Name")}("${homeName}")
-
 public class ${entityName}Home extends ${pojo.importType("org.jboss.seam.framework.EntityHome")}<${entityName}>
 {
 
@@ -48,7 +47,9 @@ public class ${entityName}Home extends ${pojo.importType("org.jboss.seam.framewo
     {
 <#foreach property in pojo.identifierProperty.value.propertyIterator>
 <#assign getter = pojo.getGetterSignature(property)>
-<#if !c2j.isPrimitive( pojo.getJavaTypeName(property, true) )>
+<#if property.value.typeName == "string">
+        if ( get${idName}().${getter}()==null || "".equals( get${idName}().${getter}() ) ) return false;
+<#elseif !c2j.isPrimitive( pojo.getJavaTypeName(property, true) )>
         if ( get${idName}().${getter}()==null ) return false;
 <#else>
         if ( get${idName}().${getter}()==0 ) return false;
@@ -76,7 +77,7 @@ public class ${entityName}Home extends ${pojo.importType("org.jboss.seam.framewo
 <#if parentPojo.shortName!=pojo.shortName>
 <#assign parentHomeName = util.lower(parentPojo.shortName) + "Home">
 <#assign setter = "set" + pojo.getPropertyName(property)>
-        ${modelPackage}.${parentPojo.shortName} ${property.name}=${parentHomeName}.getDefinedInstance();
+        ${parentPojo.shortName} ${property.name}=${parentHomeName}.getDefinedInstance();
         if ( ${property.name}!=null )
         {
            getInstance().${setter}(${property.name});
@@ -106,9 +107,9 @@ public class ${entityName}Home extends ${pojo.importType("org.jboss.seam.framewo
 <#assign getter = pojo.getGetterSignature(property)>
 <#if c2h.isOneToManyCollection(property)>
 <#assign childPojo = c2j.getPOJOClass(property.value.element.associatedClass)>
-    public ${pojo.importType("java.util.List")}<${modelPackage}.${childPojo.shortName}> ${getter}() {
+    public ${pojo.importType("java.util.List")}<${childPojo.shortName}> ${getter}() {
         return getInstance() == null ? 
-            null : new ${pojo.importType("java.util.ArrayList")}<${modelPackage}.${childPojo.shortName}>( getInstance().${getter}() );
+            null : new ${pojo.importType("java.util.ArrayList")}<${childPojo.shortName}>( getInstance().${getter}() );
     }
 </#if>
 </#foreach>
@@ -116,5 +117,8 @@ public class ${entityName}Home extends ${pojo.importType("org.jboss.seam.framewo
 }
 </#assign>
 
+<#if pojo.packageName != "">
+import ${pojo.packageName}.*;
+</#if>
 ${pojo.generateImports()}
 ${classbody}

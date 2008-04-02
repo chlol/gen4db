@@ -1,3 +1,4 @@
+<#include "../util/TypeInfo.ftl">
 <#assign entityName = pojo.shortName>
 <#assign componentName = util.lower(entityName)>
 <#assign listName = componentName + "List">
@@ -9,8 +10,10 @@ import org.jboss.seam.framework.EntityQuery;
 import java.util.List;
 import java.util.Arrays;
 
+<#if pojo.packageName != "">
 <#assign modelPackage = util.replacePackage(pojo.getPackageName(),"model",module)>
 import ${modelPackage}.${entityName};
+</#if>
 
 @Name("${listName}")
 public class ${entityName}List extends EntityQuery
@@ -21,12 +24,12 @@ public class ${entityName}List extends EntityQuery
 <#if !c2h.isCollection(property) && !c2h.isManyToOne(property)>
 <#if c2j.isComponent(property)>
 <#foreach componentProperty in property.value.propertyIterator>
-<#if componentProperty.value.typeName == "string">
+<#if isString(componentProperty)>
         "lower(${componentName}.${property.name}.${componentProperty.name}) like concat(lower(${'#'}{${listName}.${componentName}.${property.name}.${componentProperty.name}}),'%')",
 </#if>
 </#foreach>
 <#else>
-<#if property.value.typeName == "string">
+<#if isString(property)>
         "lower(${componentName}.${property.name}) like concat(lower(${'#'}{${listName}.${componentName}.${property.name}}),'%')",
 </#if>
 </#if>
