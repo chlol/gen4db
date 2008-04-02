@@ -6,12 +6,13 @@
 		can have more than one tables separated by comma
 	-->
 	<modules >
-		<module name="common">
-			sys_user,sys_role,sys_user_role
+		<module name="test">
+			t_order,t_role,t_test_many_pk,t_test_pk_1,t_test_pk_2,
+			t_user,t_user_account,t_user_role
 		</module>
 	</modules>
 	<!-- the all tables prefix,separated by comma -->
-	<prefix>mh_,sys</prefix>
+	<prefix>t</prefix>
 	<!-- the primary key generation type,the value must be in IDENTITY,SEQUENCE,TABLE,AUTO -->
 	<primaryKeyType>IDENTITY</primaryKeyType>
 </gen4db>
