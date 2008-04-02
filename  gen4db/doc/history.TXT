@@ -1,0 +1,3 @@
+必须放到外面的模板：
+GetPropertyAnnotation.ftl jboss seam的需要
+Pojo.ftl 包定义发生了变更
