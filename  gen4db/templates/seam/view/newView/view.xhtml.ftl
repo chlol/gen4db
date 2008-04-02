@@ -21,7 +21,7 @@
     <rich:panel>
         <f:facet name="header">${'#'}{messages['${componentName}']}${'#'}{messages['label.header.info']}</f:facet>
 <#foreach property in pojo.allPropertiesIterator>
-<#if !c2h.isCollection(property) && !c2h.isManyToOne(property)>
+<#if !c2h.isCollection(property) && !c2h.isManyToOne(property) && property != pojo.versionProperty!>
 <#include "viewproperty.xhtml.ftl">
 </#if>
 </#foreach>

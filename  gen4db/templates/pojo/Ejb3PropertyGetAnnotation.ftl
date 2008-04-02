@@ -2,8 +2,6 @@
 <#if pojo.hasIdentifierProperty()>
 <#if property.equals(clazz.identifierProperty)>
  ${pojo.generateAnnIdGenerator()}
- <#assign primaryKeyTypeAnntation = util.getPrimaryKeyType()>
- ${primaryKeyTypeAnntation}
 <#-- if this is the id property (getter)-->
 <#-- explicitly set the column name for this property-->
 </#if>
@@ -12,7 +10,7 @@
 <#--TODO support @OneToOne true and false-->    
 ${pojo.generateManyToOneAnnotation(property)}
 <#--TODO support optional and targetEntity-->    
-${pojo.generateJoinColumnsAnnotation(property)}
+${pojo.generateJoinColumnsAnnotation(property, cfg)}
 <#elseif c2h.isCollection(property)>
 ${pojo.generateCollectionAnnotation(property, cfg)}
 <#else>

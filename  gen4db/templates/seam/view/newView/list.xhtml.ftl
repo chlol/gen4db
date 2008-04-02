@@ -1,5 +1,6 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<#include "../../util/TypeInfo.ftl">
 <#assign entityName = pojo.shortName>
 <#assign componentName = util.lower(entityName)>
 <#assign listName = componentName + "List">
@@ -24,10 +25,10 @@
         <rich:simpleTogglePanel label="${'#'}{messages['${componentName}']}${'#'}{messages['label.searchCondition.title']}" switchType="ajax">
         
 <#foreach property in pojo.allPropertiesIterator>
-<#if !c2h.isCollection(property) && !c2h.isManyToOne(property)>
+<#if !c2h.isCollection(property) && !c2h.isManyToOne(property) && property != pojo.versionProperty!>
 <#if c2j.isComponent(property)>
 <#foreach componentProperty in property.value.propertyIterator>
-<#if componentProperty.value.typeName == "string">
+<#if isString(componentProperty)>
             <s:decorate template="/layout/display.xhtml">
                 <ui:define name="label">${'#'}{messages['${componentName}.${componentProperty.name}']}</ui:define>
                 <h:inputText id="${componentProperty.name}" value="${'#'}{${listName}.${componentName}.${property.name}.${componentProperty.name}}"/>
@@ -36,7 +37,7 @@
 </#if>
 </#foreach>
 <#else>
-<#if property.value.typeName == "string">
+<#if isString(property)>
             <s:decorate template="/layout/display.xhtml">
                 <ui:define name="label">${'#'}{messages['${componentName}.${property.name}']}</ui:define>
                 <h:inputText id="${property.name}" value="${'#'}{${listName}.${componentName}.${property.name}}"/>
@@ -68,7 +69,7 @@
                rows="${'#'}{messages['constant.pageSize']}"
            rendered="${'#'}{not empty ${listName}.resultList}">
 <#foreach property in pojo.allPropertiesIterator>
-<#if !c2h.isCollection(property) && !c2h.isManyToOne(property)>
+<#if !c2h.isCollection(property) && !c2h.isManyToOne(property) && property != pojo.versionProperty!>
 <#if pojo.isComponent(property)>
 <#foreach componentProperty in property.value.propertyIterator>
         <h:column>
@@ -80,15 +81,16 @@
         <h:column>
             <f:facet name="header">
                 <s:link styleClass="columnHeader"
-                             value="${'#'}{messages['${componentName}.${property.name}']} ${'#'}{${listName}.order=='${property.name} asc' ? messages.down : ( ${listName}.order=='${property.name} desc' ? messages.up : '' )}">
-                    <f:param name="order" value="${'#'}{${listName}.order=='${property.name} asc' ? '${property.name} desc' : '${property.name} asc'}"/>
+                             value="${'#'}{messages['${componentName}.${property.name}']} ${'#'}{${listName}.orderColumn=='${property.name}' ? (${listName}.orderDirection=='desc' ? messages.down : messages.up)  : ''}">                   
+                    <f:param name="sort" value="${property.name}" />
+                    <f:param name="dir" value="${'#'}{${listName}.orderDirection=='asc' ? 'desc' : 'asc'}"/>
                 </s:link>
             </f:facet>
-            <#if property.value.typeName == "timestamp">
+            <#if isTimestamp(property) >
             	<h:outputText value="${'#'}{${componentName}.${property.name}}">
             		<s:convertDateTime type="both" dateStyle="short" pattern="${'#'}{messages['constant.dateLongFormat']}"/>
             	</h:outputText>
-            <#elseif property.value.typeName == "date">
+            <#elseif isDate(property)>
             	<h:outputText value="${'#'}{${componentName}.${property.name}}">
             		<s:convertDateTime type="both" dateStyle="short" pattern="${'#'}{messages['constant.dateFormat']}"/>
             	</h:outputText>
