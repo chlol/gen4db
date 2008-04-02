@@ -1,12 +1,10 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2008-4-2 17:19:19                            */
+/* Created on:     2008-4-2 17:53:25                            */
 /*==============================================================*/
 
 
 drop table if exists t_order;
-
-drop table if exists t_order_item;
 
 drop table if exists t_role;
 
@@ -34,19 +32,6 @@ create table t_order
    primary key (id)
 )
 comment = "用户订单信息";
-
-/*==============================================================*/
-/* Table: t_order_item                                          */
-/*==============================================================*/
-create table t_order_item
-(
-   id                   bigint not null comment '订单项标示',
-   order_id             bigint( comment '订单标示',
-   name                 varchar(100) not null comment '订单项名称',
-   item_count           int not null comment '订单项数量',
-   primary key (id)
-)
-comment = "订单项信息";
 
 /*==============================================================*/
 /* Table: t_role                                                */
@@ -135,9 +120,6 @@ comment = "用户、角色关系信息";
 
 alter table t_order add constraint FK_Reference_3 foreign key (user_id)
       references t_user (id) on delete restrict on update restrict;
-
-alter table t_order_item add constraint FK_Reference_4 foreign key (order_id)
-      references t_order (id) on delete restrict on update restrict;
 
 alter table t_test_many_pk add constraint FK_Reference_6 foreign key (test_pk_1_id)
       references t_test_pk_1 (id) on delete restrict on update restrict;
