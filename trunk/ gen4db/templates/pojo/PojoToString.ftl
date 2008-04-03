@@ -1,14 +1,9 @@
-<#if pojo.needsToString()>    /**
-     * toString
-     * @return String
-     */
-     public String toString() {
-	  StringBuffer buffer = new StringBuffer();
+    public String toString() {
+        StringBuffer sb = new StringBuffer(getClass().getSimpleName());
 
-      buffer.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
-<#foreach property in pojo.getToStringPropertiesIterator()>      buffer.append("${property.getName()}").append("='").append(${pojo.getGetterSignature(property)}()).append("' ");			
-</#foreach>      buffer.append("]");
+        sb.append(" [");
+<#list pojo.getAllPropertiesIterator() as property>        <#if !c2h.isCollection(property)>sb.append("${property.getName()}").append("='").append(${pojo.getGetterSignature(property)}()).append("'<#if property_has_next>, </#if>");</#if>
+</#list>        sb.append("]");
       
-      return buffer.toString();
-     }
-</#if>
+        return sb.toString();
+    }
