@@ -1,11 +1,12 @@
 <#assign packageDeclaration = util.replacePackageDeclaration(pojo.getPackageDeclaration(),profile,module)>
 ${packageDeclaration}
-// Generated ${date} by Hibernate Tools ${version}
 
 <#assign classbody>
 <#include "PojoTypeDeclaration.ftl"/> {
 
 <#if !pojo.isInterface()>
+private static final long serialVersionUID = 1L;
+
 <#include "PojoFields.ftl"/>
 
 <#include "PojoConstructors.ftl"/>
