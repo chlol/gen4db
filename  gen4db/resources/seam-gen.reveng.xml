@@ -4,5 +4,5 @@
 
   <!-- This file is intentionally generated empty by seam-gen -->
   <!-- You can add any filtering/setup you want for your app -->
-  <table-filter match-name="t_.*" exclude="false"/>
+  
 </hibernate-reverse-engineering>
