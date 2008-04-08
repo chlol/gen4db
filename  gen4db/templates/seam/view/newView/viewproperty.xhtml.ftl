@@ -1,4 +1,4 @@
-<#include "../../util/TypeInfo.ftl">
+<#include "../../../util/TypeInfo.ftl">
 
 <#assign entityName = pojo.shortName>
 <#assign componentName = util.lower(entityName)>
