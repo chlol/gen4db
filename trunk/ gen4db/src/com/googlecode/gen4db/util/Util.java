@@ -46,6 +46,33 @@ public class Util {
 		return result;
 	}
 	
+	public String getObjectType(String baseType) {
+		if ("int".equals(baseType)) {
+			return "Integer";
+		}
+		else if ("long".equals(baseType)) {
+			return "Long";
+		}
+		else if ("float".equals(baseType)) {
+			return "Float";
+		}
+		else if ("boolean".equals(baseType)) {
+			return "Boolean";
+		}
+		else if ("char".equals(baseType)) {
+			return "Character";
+		}
+		else if ("double".equals(baseType)) {
+			return "Double";
+		}
+		else if ("short".equals(baseType)) {
+			return "Short";
+		}
+		else {
+			return baseType;
+		}
+	}
+	
 	//TODO
 	public String getSerialVersionUID() {
 		return "";
