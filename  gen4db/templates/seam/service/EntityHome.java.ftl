@@ -10,11 +10,12 @@ import ${modelPackage}.${entityName};
 @${pojo.importType("org.jboss.seam.annotations.Name")}("${homeName}")
 public class ${entityName}Home extends ${pojo.importType("org.jboss.seam.framework.EntityHome")}<${entityName}>
 {
+private static final long serialVersionUID = 1L;
 
 <#foreach property in pojo.allPropertiesIterator>
 <#if c2h.isManyToOne(property)>
 <#assign parentPojo = c2j.getPOJOClass(cfg.getClassMapping(property.value.referencedEntityName))>
-<#assign parentHomeName = util.lower(parentPojo.shortName) + "Home">
+<#assign parentHomeName = property.name + "Home">
     @${pojo.importType("org.jboss.seam.annotations.In")}(create=true)
     ${parentPojo.shortName}Home ${parentHomeName};
 </#if>
@@ -75,7 +76,7 @@ public class ${entityName}Home extends ${pojo.importType("org.jboss.seam.framewo
 <#if c2h.isManyToOne(property)>
 <#assign parentPojo = c2j.getPOJOClass(cfg.getClassMapping(property.value.referencedEntityName))>
 <#if parentPojo.shortName!=pojo.shortName>
-<#assign parentHomeName = util.lower(parentPojo.shortName) + "Home">
+<#assign parentHomeName = property.name + "Home">
 <#assign setter = "set" + pojo.getPropertyName(property)>
         ${parentPojo.shortName} ${property.name}=${parentHomeName}.getDefinedInstance();
         if ( ${property.name}!=null )
@@ -117,8 +118,5 @@ public class ${entityName}Home extends ${pojo.importType("org.jboss.seam.framewo
 }
 </#assign>
 
-<#if pojo.packageName != "">
-import ${pojo.packageName}.*;
-</#if>
 ${pojo.generateImports()}
 ${classbody}

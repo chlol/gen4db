@@ -18,6 +18,7 @@ import ${modelPackage}.${entityName};
 @Name("${listName}")
 public class ${entityName}List extends EntityQuery
 {
+private static final long serialVersionUID = 1L;
 
     private static final String[] RESTRICTIONS = {
 <#foreach property in pojo.allPropertiesIterator>
