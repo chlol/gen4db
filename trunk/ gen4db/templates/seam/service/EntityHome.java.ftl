@@ -82,7 +82,7 @@ private static final long serialVersionUID = 1L;
         if ( ${property.name}!=null )
         {
            getInstance().${setter}(${property.name});
-        }
+        }${parentPojo.getQualifiedDeclarationName()};
 </#if>
 </#if>
 </#foreach>
