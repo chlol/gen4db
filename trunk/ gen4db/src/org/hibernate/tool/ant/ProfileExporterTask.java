@@ -44,10 +44,10 @@ public class ProfileExporterTask extends GenericExporterTask {
 	}
 
 	public Exporter configureExporter(Exporter exporter) {
-		super.configureExporter(exporter);
-
 		log.debug("begin set ProfileExporter......");
 		ProfileExporter exp = (ProfileExporter) exporter;
+		super.configureExporter(exporter);
+		
 		if (filePattern != null) {
 			exp.setFilePattern(filePattern);
 		}
@@ -62,7 +62,7 @@ public class ProfileExporterTask extends GenericExporterTask {
 			exp.getProperties().setProperty("jdk5", "" + isEjb3);
 		}
 
-		return exporter;
+		return exp;
 	}
 
 	
