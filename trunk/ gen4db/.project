@@ -3,7 +3,8 @@
 	<name>gen4db</name>
 	<comment></comment>
 	<projects>
-		<project>hbt</project>
+		<project>hibernate3.2</project>
+		<project>hibernate-tools</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
