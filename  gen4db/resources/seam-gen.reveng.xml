@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-reverse-engineering SYSTEM "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
 <hibernate-reverse-engineering>
 
-  <!-- This file is intentionally generated empty by seam-gen -->
-  <!-- You can add any filtering/setup you want for your app -->
-  
+	<!-- This file is intentionally generated empty by seam-gen -->
+	<!-- You can add any filtering/setup you want for your app -->
+	<table-filter match-name="t_.*" exclude="false" />
 </hibernate-reverse-engineering>

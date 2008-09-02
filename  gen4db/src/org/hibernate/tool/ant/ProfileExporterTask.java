@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.tool.ant.GenericExporterTask;
 import org.hibernate.tool.hbm2x.Exporter;
+import org.hibernate.tool.hbm2x.PojoProfileExporter;
 import org.hibernate.tool.hbm2x.ProfileExporter;
 import org.hibernate.util.ReflectHelper;
 import org.apache.tools.ant.BuildException;
@@ -22,7 +23,13 @@ public class ProfileExporterTask extends GenericExporterTask {
 
 	public Exporter createExporter() {
 		if (exporterClass == null) {
-			return new ProfileExporter();
+			if (isEjb3) {
+				return new PojoProfileExporter();
+			}
+			else {
+				return new ProfileExporter();
+			}
+			
 		} else {
 			try {
 				Class theClass = ReflectHelper.classForName(exporterClass);
@@ -58,8 +65,8 @@ public class ProfileExporterTask extends GenericExporterTask {
 			exp.setProfile(profile);
 		}
 		if (isEjb3) {
-			exp.getProperties().setProperty("ejb3", "" + isEjb3);
-			exp.getProperties().setProperty("jdk5", "" + isEjb3);
+			exp.getProperties().setProperty("ejb3", "true" );
+			exp.getProperties().setProperty("jdk5", "true");
 		}
 
 		return exp;

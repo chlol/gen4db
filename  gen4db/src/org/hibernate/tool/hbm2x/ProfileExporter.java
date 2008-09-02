@@ -83,7 +83,7 @@ public class ProfileExporter extends GenericExporter {
 		return module;
 	}
 	
-	protected void setupContext() {
+	/*protected void setupContext() {
 		if(!getProperties().containsKey("ejb3")) {
 			getProperties().put("ejb3", "false");
 		}
@@ -91,5 +91,5 @@ public class ProfileExporter extends GenericExporter {
 			getProperties().put("jdk5", "false");
 		}	
 		super.setupContext();
-	}
+	}*/
 }
