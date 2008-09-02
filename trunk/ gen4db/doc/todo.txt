@@ -11,7 +11,7 @@
 11.修改页面模板，<a: --> <a4j: (完成)
 12.entity,list,home等bean的name用模块名+类名
 13.gen4db.xml增加dtd控制
-14.解决复合主键的类不能生成（pojo的模板放到jar外面以后）
+14.解决复合主键的类不能生成（pojo的模板放到jar外面以后）(完成)
 (p.s. in SVN we now have <hbmtemplate ... foreach="entity"/> where foreach states what kind of thing you want to iterate over (it can be a comma seperated list of "configuration", "component" and "entity").)
 15.propile支持aa.bb的模式,主要是生成文件的目录不对
 16.
