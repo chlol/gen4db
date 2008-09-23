@@ -6,12 +6,18 @@
 		can have more than one tables separated by comma
 	-->
 	<modules >
-	  <module name="test">
-			t_order,t_role,t_test_many_pk,t_test_pk_1,t_test_pk_2,t_user,t_user_account,t_user_role
-		</module>		
+	  <module name="workflow">
+			WF_NODEVARIABLE,WF_PACKAGE,WF_POSITION,WF_PROCESS,WF_PROCESSEXCEPTION,WF_PROCESSLOCK,WF_PROCESSTIMERCTRL,WF_PROCESSVARIABLE
+		</module>	
+		<module name="flatform">
+			IP_ARCAUTHANS,IP_ARCAUTHQST,IP_ARCBIZOPER,IP_ARCBIZRULE,IP_ARCCHANNEL,IP_ARCFUNCTION,IP_ARCGRANT
+		</module>	
+		<module name="fw">
+			FW_APPROVE_OPINION,FW_BIZ_CATEGORY,FW_COLUMN,FW_FRAME_CODE_INFO,FW_FRAME_CODE_TYPE,FW_FRAME_COUNTER,FW_FRAME_FUNC
+		</module>
 	</modules>
 	<!-- the all tables prefix,separated by comma -->
-	<prefix>t</prefix>
+	<prefix>FW,WF,IP</prefix>
 	<!-- the primary key generation type,the value must be in IDENTITY,SEQUENCE,TABLE,AUTO -->
 	<primaryKeyType>IDENTITY</primaryKeyType>
 </gen4db>
