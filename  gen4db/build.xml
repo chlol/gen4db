@@ -39,7 +39,7 @@
 		
 		<taskdef name="hibernate" classname="org.hibernate.tool.ant.Gen4dbToolTask" classpathref="gen4db.classpath"/>			
 		
-		<hibernate templatepath="${basedir}/templates">
+		<hibernate templatepath=".">
 			<jdbcconfiguration detectoptimisticlock="true" propertyfile="gen4db_build.properties" packagename="${basePackage}" reverseStrategy="com.googlecode.gen4db.util.MyReverseEngineeringDelegator" revengfile="${revengFile}" detectmanytomany="true" preferBasicCompositeids="true"/>
 
 			<property key="hibernatetool.util.toolclass" value="com.googlecode.gen4db.util.Util" />
