@@ -4,7 +4,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.tool.ant.GenericExporterTask;
 import org.hibernate.tool.hbm2x.Exporter;
-import org.hibernate.tool.hbm2x.PojoProfileExporter;
 import org.hibernate.tool.hbm2x.ProfileExporter;
 import org.hibernate.util.ReflectHelper;
 import org.apache.tools.ant.BuildException;
@@ -24,7 +23,7 @@ public class ProfileExporterTask extends GenericExporterTask {
 	public Exporter createExporter() {
 		if (exporterClass == null) {
 			if (isEjb3) {
-				return new PojoProfileExporter();
+				return new ProfileExporter();
 			}
 			else {
 				return new ProfileExporter();

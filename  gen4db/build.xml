@@ -44,7 +44,7 @@
 
 			<property key="hibernatetool.util.toolclass" value="com.googlecode.gen4db.util.Util" />
 
-			<profiletemplate ejb3="true" profile="model" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}.java" destdir="${gen.dir}/src/model" foreach="component,entity" />
+			<profiletemplate ejb3="true" profile="model" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}.java" template="${template.path.pojo}/Pojo.ftl" destdir="${gen.dir}/src/model" foreach="component,entity" />
 			<profiletemplate profile="service" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}Home.java" template="${template.path.service}/EntityHome.java.ftl" destdir="${gen.dir}/src/action" foreach="entity" />
 			<profiletemplate profile="service" filepattern="{package-name}/{profile-name}/{module-name}/{class-name}List.java" template="${template.path.service}/EntityList.java.ftl" destdir="${gen.dir}/src/action" foreach="entity" />
 			<profiletemplate filepattern="{module-name}/{class-name}List.xhtml" template="${template.path.view}/list.xhtml.ftl" destdir="${gen.dir}/view" foreach="entity" />
