@@ -130,7 +130,7 @@
 </#if>
 </#foreach>
         <h:column>
-            <f:facet name="header">${'#'}{messages['label.header.action']}</f:facet>
+            <f:facet name="header">${'#'}{messages['label.header.operation']}</f:facet>
             <s:link view="/${module}/${'#'}{empty from ? '${pageName}' : from}.xhtml" 
                    value="${'#'}{messages['button.edit']}" 
                       id="${componentName}">

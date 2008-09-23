@@ -7,12 +7,11 @@
      */
 </#if>
     <#include "GetPropertyAnnotation.ftl"/>
-    <#assign javaTypeName = util.getObjectType(pojo.getJavaTypeName(property, jdk5))>
-    ${pojo.getPropertyGetModifiers(property)} ${javaTypeName} ${pojo.getGetterSignature(property)}() {
+    ${pojo.getPropertyGetModifiers(property)} ${pojo.getJavaTypeName(property, jdk5)} ${pojo.getGetterSignature(property)}() {
         return this.${property.name};
     }
     
-    ${pojo.getPropertySetModifiers(property)} void set${pojo.getPropertyName(property)}(${javaTypeName} ${property.name}) {
+    ${pojo.getPropertySetModifiers(property)} void set${pojo.getPropertyName(property)}(${pojo.getJavaTypeName(property, jdk5)} ${property.name}) {
         this.${property.name} = ${property.name};
     }
 </#if>
